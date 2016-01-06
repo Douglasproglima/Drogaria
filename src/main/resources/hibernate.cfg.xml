@@ -36,11 +36,14 @@
 		<property name="hbm2ddl.auto">create</property>
 
 		<!-- Mapeamento das entidades do hibernate que estão nas class com anotação @Entidy -->
+		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Cliente"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Funcionario"/>
 		<mapping class="br.pro.delfino.drogaria.domain.Estado" />
 		<mapping class="br.pro.delfino.drogaria.domain.Fabricante"/>
-		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
-		<mapping class="br.pro.delfino.drogaria.domain.Produto"/>
 		<mapping class="br.pro.delfino.drogaria.domain.Pessoa"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Produto"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Usuario"/>
 	</session-factory>
 
 </hibernate-configuration>

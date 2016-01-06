@@ -4,46 +4,46 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @SuppressWarnings("serial")
 @Entity
 public class Pessoa extends GenericDomain{
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "codCidade", nullable = false, foreignKey = @ForeignKey(name = "FK_codCidade"))
 	private Cidade cidade;
 	
-	@Column(nullable = false)
+	@Column(length = 50, nullable = false)
 	private String nome;
 	
-	@Column(nullable = false, length = 11)
+	@Column(length = 14, nullable = false)
 	private String cpf;
 	
-	@Column(length = 30)
+	@Column(length = 12, nullable = false)
 	private String rg;
 	
-	@Column(length = 80)
+	@Column(length = 100, nullable = false)
 	private String rua;
 	
-	@Column(length = 6)
+	@Column(length = 6, nullable = false)
 	private Short numero;
 	
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	private String bairro;
 	
-	@Column(length = 10)
+	@Column(length = 10, nullable = false)
 	private String cep;
 	
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	private String complemento;
 
-	@Column(length = 16)
+	@Column(length = 13, nullable = false)
 	private String telefone;
 	
-	@Column(length = 16)
+	@Column(length = 14, nullable = false)
 	private String celular;
 	
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	private String email;
 
 	public Cidade getCidade() {
