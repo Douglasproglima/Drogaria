@@ -37,7 +37,8 @@
 
 		<!-- Mapeamento das entidades do hibernate que estão nas class com anotação @Entidy -->
 		<mapping class="br.pro.delfino.drogaria.domain.Estado" />
-
+		<mapping class="br.pro.delfino.drogaria.domain.Fabricante"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
 	</session-factory>
 
 </hibernate-configuration>
