@@ -9,20 +9,12 @@ import javax.persistence.ManyToOne;
 @SuppressWarnings("serial")
 @Entity
 public class Cidade extends GenericDomain {
+	@ManyToOne
+	@JoinColumn(name = "codEstado", nullable = false, foreignKey = @ForeignKey(name = "FK_codEstado") )
+
+	private Estado estado;
 	@Column(length = 100, nullable = false)
 	private String nome;
-
-	@ManyToOne
-	@JoinColumn(name = "codigoEstado", nullable = false, foreignKey = @ForeignKey(name = "fk_codigoEstado"))
-	private Estado estado;
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public Estado getEstado() {
 		return estado;
@@ -30,5 +22,13 @@ public class Cidade extends GenericDomain {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

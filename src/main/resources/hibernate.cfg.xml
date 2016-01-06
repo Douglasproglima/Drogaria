@@ -39,6 +39,8 @@
 		<mapping class="br.pro.delfino.drogaria.domain.Estado" />
 		<mapping class="br.pro.delfino.drogaria.domain.Fabricante"/>
 		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Produto"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Pessoa"/>
 	</session-factory>
 
 </hibernate-configuration>
