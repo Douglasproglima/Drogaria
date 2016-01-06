@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Produto extends GenericDomain {
 	@ManyToOne
-	@JoinColumn(name = "codFabricante", nullable = false, foreignKey = @ForeignKey(name = "FK_codFabricante") )
+	@JoinColumn(name = "codFabricante", nullable = false, foreignKey = @ForeignKey(name = "FK_ProdutoXFabricante") )
 	private Fabricante fabricante;
 
 	@Column(length = 150, nullable = false)

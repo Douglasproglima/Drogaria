@@ -10,11 +10,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class Usuario extends GenericDomain{
 	@OneToOne
-	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_codPessoa"))
+	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_UsuarioXPessoa"))
 	private Pessoa pessoa;
 	
-	@Column(nullable = false)
-	private Boolean ativo;
+	@Column(nullable = false, columnDefinition = "character varying (1) default 'S'")
+	private Character ativo;
 	
 	@Column(length = 32, nullable = false)
 	private String senha;
@@ -30,11 +30,11 @@ public class Usuario extends GenericDomain{
 		this.pessoa = pessoa;
 	}
 
-	public Boolean getAtivo() {
+	public Character getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(Character ativo) {
 		this.ativo = ativo;
 	}
 

@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Pessoa extends GenericDomain{
 	@OneToOne
-	@JoinColumn(name = "codCidade", nullable = false, foreignKey = @ForeignKey(name = "FK_codCidade"))
+	@JoinColumn(name = "codCidade", nullable = false, foreignKey = @ForeignKey(name = "FK_PessoaXCidade"))
 	private Cidade cidade;
 	
 	@Column(length = 50, nullable = false)

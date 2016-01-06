@@ -14,10 +14,10 @@ import javax.persistence.TemporalType;
 @Entity
 public class Funcionario extends GenericDomain{
 	@OneToOne
-	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_codPessoa"))
+	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_FuncionarioXPessoa"))
 	private Pessoa pessoa;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "character varying (1) default 'S'")
 	private Boolean ativo;
 	
 	@Column(length = 15, nullable = false)
