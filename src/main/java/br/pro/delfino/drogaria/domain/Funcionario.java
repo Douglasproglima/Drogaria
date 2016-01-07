@@ -17,8 +17,8 @@ public class Funcionario extends GenericDomain{
 	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_FuncionarioXPessoa"))
 	private Pessoa pessoa;
 	
-	@Column(nullable = false, columnDefinition = "character varying (1) default 'S' ")
-	private Character ativo;
+	@Column(nullable = false)
+	private Boolean ativo;
 	
 	@Column(length = 15, nullable = false)
 	private String carteiraTrabalho;
@@ -35,11 +35,11 @@ public class Funcionario extends GenericDomain{
 		this.pessoa = pessoa;
 	}
 
-	public Character getAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
-
-	public void setAtivo(Character ativo) {
+	
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 

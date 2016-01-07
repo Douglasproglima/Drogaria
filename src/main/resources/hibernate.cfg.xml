@@ -33,7 +33,7 @@
 			2 - create   -> Apaga todas as tabelas e os dados; 
 			3 - validade -> Valida o que criou no projeto Java está criado no banco;
 		-->
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">validade</property>
 
 		<!-- Mapeamento das entidades do hibernate que estão nas class com anotação @Entidy -->
 		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>

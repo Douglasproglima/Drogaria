@@ -21,8 +21,8 @@ public class Cliente extends GenericDomain{
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
-	@Column(nullable = false, columnDefinition = "character varying (1) default 'S' ")
-	private Character ativo;
+	@Column(nullable = false)
+	private Boolean ativo;
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -40,11 +40,11 @@ public class Cliente extends GenericDomain{
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Character getAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
-
-	public void setAtivo(Character ativo) {
+	
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 }
