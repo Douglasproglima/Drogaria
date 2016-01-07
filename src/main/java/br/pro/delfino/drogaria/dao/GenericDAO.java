@@ -11,8 +11,8 @@ import org.hibernate.criterion.Restrictions;
 import br.pro.delfino.drogaria.util.HibernateUtil;
 
 public class GenericDAO<Entidade> {
-	//API Reflection para contornar o problema da utilização do GenericDAO na pesquisa com o hibernate para saber de qual Domain
-	//estamos tratando.
+	//API Reflection para contornar o problema da utilização do GenericDAO na pesquisa com o 
+	//hibernate para saber de qual Domain estamos tratando.
 	public Class<Entidade> classe;
 	
 	@SuppressWarnings("unchecked")
@@ -96,4 +96,22 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
+	
+	public void editar(Entidade entidade){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
+		
+		try {
+			transacao = sessao.beginTransaction();
+			sessao.update(entidade);
+			transacao.commit();
+		} catch (RuntimeException erro) {
+			if (transacao != null) {
+				transacao.rollback();
+			}
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}	
 }

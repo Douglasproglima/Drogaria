@@ -55,6 +55,7 @@ public class EstadoDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void excluir(){
 		Long codigo = 3L;
 		EstadoDAO estadoDAO = new EstadoDAO();
@@ -65,6 +66,26 @@ public class EstadoDAOTest {
 			System.out.println("Registro excluído com sucesso.");
 		} else {
 			System.out.println("Registro não encontrado para ser excluído.");
+		}
+	}
+	
+	@Test
+	public void editar(){
+		Long codigo = 4L;
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscar(codigo);
+		
+		if (estado != null) {
+			System.out.println("Registro alterado anterior: "+estado.getSigla()+" - "+estado.getNome());
+			
+			estado.setSigla("ES");
+			estado.setNome("ESPIRITO SANTO");
+			estadoDAO.editar(estado);
+			
+			System.out.println("Registro atual: "+estado.getSigla()+" - "+estado.getNome());
+		} else {
+			System.out.println("Registro não encontrado.");
 		}
 	}
 }
