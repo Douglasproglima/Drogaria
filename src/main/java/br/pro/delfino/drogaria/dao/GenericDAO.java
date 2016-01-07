@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.pro.delfino.drogaria.util.HibernateUtil;
 
@@ -59,4 +60,22 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Entidade buscar(Long codigo){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			Criteria consulta = sessao.createCriteria(classe);
+			consulta.add(Restrictions.idEq(codigo));
+			
+			Entidade resultado = (Entidade) consulta.uniqueResult();
+			return resultado;
+			
+		} catch (RuntimeException erro) {
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}	
 }

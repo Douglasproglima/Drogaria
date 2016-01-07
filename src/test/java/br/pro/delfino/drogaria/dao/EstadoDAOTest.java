@@ -26,6 +26,7 @@ public class EstadoDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void listar(){
 		EstadoDAO estadoDAO = new EstadoDAO();
 		List<Estado> resutado = estadoDAO.listar();
@@ -35,6 +36,20 @@ public class EstadoDAOTest {
 		
 		for (Estado estado : resutado) {
 			System.out.println(estado.getSigla()+" - "+estado.getNome());
+		}
+	}
+	
+	@Test
+	public void buscar(){
+		Long codigo = 5L;
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscar(codigo);
+		
+		if (estado != null) {
+			System.out.println(estado.getSigla()+" - "+estado.getNome());
+		} else {
+			System.out.println("Registro não encontrado.");
 		}
 	}
 }
