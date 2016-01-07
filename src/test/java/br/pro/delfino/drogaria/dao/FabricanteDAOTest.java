@@ -31,6 +31,7 @@ public class FabricanteDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void buscar(){
 		Long codigo = 1L;
 		
@@ -41,6 +42,20 @@ public class FabricanteDAOTest {
 			System.out.println(fabricante.getCodigo()+" - "+fabricante.getDescricao());
 		} else {
 			System.out.println("Registro não encontrado.");
+		}
+	}
+	
+	@Test
+	public void excluir(){
+		Long codigo = 7L;
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		Fabricante fabricante = fabricanteDAO.buscar(codigo);
+		
+		if (fabricante != null) {
+			fabricanteDAO.excluir(fabricante);
+			System.out.println("Registro excluído com sucesso.");
+		} else {
+			System.out.println("Registro não encontrado para ser excluído.");
 		}
 	}
 }
