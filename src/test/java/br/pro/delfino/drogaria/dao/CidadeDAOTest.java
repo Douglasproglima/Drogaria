@@ -12,8 +12,9 @@ public class CidadeDAOTest {
 	@Test
 	@Ignore
 	public void salvar(){
+		Long codEstado = 2L;
 		EstadoDAO estadoDAO = new EstadoDAO();
-		Estado estado = estadoDAO.buscar(2L);
+		Estado estado = estadoDAO.buscar(codEstado);
 		
 		Cidade cidade = new Cidade();
 		cidade.setNome("Belo Horizonte");
