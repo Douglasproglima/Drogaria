@@ -52,6 +52,21 @@ public class ClienteDAOTest {
 	
 	@Test
 	@Ignore
+	public void buscar(){
+		ClienteDAO clienteDAO = new ClienteDAO();
+		Cliente cliente = clienteDAO.buscar(5L);
+		
+		if (cliente != null) {
+			System.out.println("Código.: "+cliente.getCodigo());
+			System.out.println("Cliente: "+cliente.getPessoa().getCodigo()+" - "+cliente.getPessoa().getNome());
+			System.out.println("Data Cadastro: "+cliente.getDataCadastro());
+		} else {
+			System.out.println("Registro não encontrado!");
+		}
+	}
+	
+	@Test
+	@Ignore
 	public void excluir(){
 		ClienteDAO clienteDAO = new ClienteDAO();
 		Cliente cliente = clienteDAO.buscar(5L);
