@@ -13,13 +13,13 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_UsuarioXPessoa"))
 	private Pessoa pessoa;
 	
-	@Column(nullable = false, columnDefinition = "character varying (1) default 'S'")
-	private Character ativo;
+	@Column(nullable = false)
+	private Boolean ativo;
 	
 	@Column(length = 32, nullable = false)
 	private String senha;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 1)
 	private Character tipo;
 
 	public Pessoa getPessoa() {
@@ -30,11 +30,11 @@ public class Usuario extends GenericDomain{
 		this.pessoa = pessoa;
 	}
 
-	public Character getAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Character ativo) {
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 
@@ -45,11 +45,11 @@ public class Usuario extends GenericDomain{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	
 	public Character getTipo() {
 		return tipo;
 	}
-
+	
 	public void setTipo(Character tipo) {
 		this.tipo = tipo;
 	}
