@@ -1,10 +1,12 @@
 package br.pro.delfino.drogaria.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @SuppressWarnings("serial")
 @Entity
 public class Fabricante extends GenericDomain{
+	@Column(length = 80, nullable = false)
 	private String descricao;
 	
 	public String getDescricao() {
