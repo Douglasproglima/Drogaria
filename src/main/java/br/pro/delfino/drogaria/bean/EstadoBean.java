@@ -1,15 +1,16 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.omnifaces.util.Messages;
-
 import br.pro.delfino.drogaria.domain.Estado;
 
+@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class EstadoBean {
+public class EstadoBean implements Serializable{
 	private Estado estado;
 	
 	public Estado getEstado() {
