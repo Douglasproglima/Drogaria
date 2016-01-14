@@ -1,16 +1,11 @@
 package br.pro.delfino.drogaria.bean;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import org.omnifaces.util.Messages;
 
 @ManagedBean
 public class EstadoBean {
 	public void salvar(){
-		String texto = "Programação Java EE - FacesMessage ";
-		FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_INFO, texto, texto);
-		
-		FacesContext contexto = FacesContext.getCurrentInstance();
-		contexto.addMessage(null, mensagem);
+		Messages.addGlobalInfo("Programa Web Java EE - OmniFaces");
 	}
 }
