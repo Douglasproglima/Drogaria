@@ -61,6 +61,7 @@ public class FabricanteDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar(){
 		Long codigo = 2L;
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
@@ -77,4 +78,20 @@ public class FabricanteDAOTest {
 			System.out.println("Registro não encontrado para alteração");
 		}
 	}
+	
+	@Test
+	@Ignore
+	public void mergerIncluir(){
+		/*Fabricante fabricante = new Fabricante();
+		fabricante.setDescricao("Fabricante Tester Merge");
+		
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		fabricanteDAO.merge(fabricante);*/
+	
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		Fabricante fabricante = fabricanteDAO.buscar(7L);
+		
+		fabricante.setDescricao("FABRICANTE TESTE MERGE 002");
+		fabricanteDAO.merge(fabricante);
+	}	
 }
