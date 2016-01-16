@@ -1,10 +1,14 @@
 package br.pro.delfino.drogaria.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
+
+import br.pro.delfino.drogaria.dao.EstadoDAO;
 import br.pro.delfino.drogaria.domain.Estado;
 
 @SuppressWarnings("serial")
@@ -12,6 +16,7 @@ import br.pro.delfino.drogaria.domain.Estado;
 @ViewScoped
 public class EstadoBean implements Serializable{
 	private Estado estado;
+	private List<Estado> estados;
 	
 	public Estado getEstado() {
 		return estado;
@@ -25,7 +30,38 @@ public class EstadoBean implements Serializable{
 		estado = new Estado();
 	}
 	
+	public List<Estado> getEstados() {
+		return estados;
+	}
+	
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
+	}
+
+	//@PostConstruct: É chamado após o contrutor default da class, então o manageBean é criado 
+	//automáticamente será chamado o método listar()
+	@PostConstruct
+	public void listar(){
+		try {
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();
+			
+		} catch (Exception erro) {
+			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}	
+	
 	public void salvar(){
-		Messages.addGlobalInfo("Nome: "+estado.getNome()+" Sigla: "+estado.getSigla());
+		try {
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO.salvar(estado);
+			
+			novo();
+			Messages.addGlobalInfo("Registro salvo com sucesso.");	
+		} catch (Exception erro) {
+			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 }
