@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
+
 import org.omnifaces.util.Messages;
 
 import br.pro.delfino.drogaria.dao.EstadoDAO;
@@ -24,10 +26,6 @@ public class EstadoBean implements Serializable{
 	
 	public void setEstado(Estado estado) {
 		this.estado = estado;
-	}
-	
-	public void novo(){
-		estado = new Estado();
 	}
 	
 	public List<Estado> getEstados() {
@@ -52,6 +50,10 @@ public class EstadoBean implements Serializable{
 		}
 	}	
 	
+	public void novo(){
+		estado = new Estado();
+	}
+	
 	public void salvar(){
 		try {
 			EstadoDAO estadoDAO = new EstadoDAO();
@@ -63,5 +65,10 @@ public class EstadoBean implements Serializable{
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}
+	}
+	
+	public void excluir(ActionEvent evento){
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+		Messages.addGlobalInfo("Estado: " + estado.getNome() + " - "+estado.getSigla());
 	}
 }

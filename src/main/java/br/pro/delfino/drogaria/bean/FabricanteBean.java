@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
+
 import org.omnifaces.util.Messages;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
@@ -25,11 +27,7 @@ public class FabricanteBean implements Serializable{
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
 	}
-	
-	public void novo(){
-		fabricante = new Fabricante();
-	}
-	
+
 	public List<Fabricante> getFabricantes() {
 		return fabricantes;
 	}
@@ -48,6 +46,10 @@ public class FabricanteBean implements Serializable{
 			erro.printStackTrace();
 		}
 	}
+
+	public void novo(){
+		fabricante = new Fabricante();
+	}
 	
 	public void salvar(){
 		try {
@@ -61,4 +63,9 @@ public class FabricanteBean implements Serializable{
 			erro.printStackTrace();
 		}
 	}
+	
+	public void excluir(ActionEvent evento){
+		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
+		Messages.addGlobalInfo("Fabricante: "+fabricante.getDescricao());
+	}	
 }
