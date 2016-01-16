@@ -15,7 +15,8 @@
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 						 paginator="true"
 						 value="#{estadoBean.estados}"
-						 var="cursorEstado">
+						 var="cursorEstado"
+						 rows="5">
 				
 				<f:facet name="header">
 					<p:commandButton value="Novo" 
@@ -24,11 +25,11 @@
 									 update=":formCadastro:painel" />
 				</f:facet>
 
-				<p:column headerText="Estado">
+				<p:column headerText="Estado" sortBy="#{cursorEstado.nome}" filterBy="#{cursorEstado.nome}" >
 					<h:outputText value="#{cursorEstado.nome}" />
 				</p:column>
 
-				<p:column headerText="Sigla">
+				<p:column headerText="Sigla" sortBy="#{cursorEstado.sigla}" filterBy="#{cursorEstado.sigla}" >
 					<h:outputText value="#{cursorEstado.sigla}" />
 				</p:column>
 
