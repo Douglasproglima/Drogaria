@@ -57,6 +57,8 @@ public class FabricanteBean implements Serializable{
 			fabricanteDAO.salvar(fabricante);
 			
 			novo();
+			fabricantes = fabricanteDAO.listar();
+			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");
 		} catch (Exception erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);

@@ -10,9 +10,9 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
-	<h:form>
+	<h:form id="formListagem">
 		<p:panel header="Fabricantes - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado."
 						 paginator="true"
 						 value="#{fabricanteBean.fabricantes}"
 						 var="cursorFabricante"
@@ -54,7 +54,7 @@
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" 
 								 actionListener="#{fabricanteBean.salvar}" 
-								 update=":mensagem :formCadastro:painel"/>
+								 update=":mensagem :formCadastro:painel :formListagem:tabelaListagem" />
 								 
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

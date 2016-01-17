@@ -60,6 +60,10 @@ public class EstadoBean implements Serializable{
 			estadoDAO.salvar(estado);
 			
 			novo();
+			
+			//Após inserir é necessário atualizar a listagem (ManageBean)
+			estados = estadoDAO.listar();
+			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");	
 		} catch (Exception erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
