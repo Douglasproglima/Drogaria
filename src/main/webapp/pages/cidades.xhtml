@@ -9,14 +9,19 @@
 	<title>Cidades</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="formListagem">
+		
 		<p:panel header="Cidades - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true" 
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
 						 value="#{cidadeBean.cidades}"
-						 var="cursorCidade"
+						 var="cursorCidade" 
 						 rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo"  
+									 actionListener="#{cidadeBean.novo()}" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":formCadastro:painelCadastro" />
 				</f:facet>
 
 				<p:column headerText="Cidade" filterBy="#{cursorCidade.nome}" sortBy="#{cursorCidade.nome}">
@@ -36,13 +41,13 @@
 	</h:form>
 
 	<p:dialog header="Cidades - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel value="Cidade: "></p:outputLabel>
-				<p:inputText maxlength="50" size="30" />
+				<p:inputText value="#{cidadeBean.cidade.nome}" maxlength="50" size="30" />
 
-				<p:outputLabel value="Estado: "></p:outputLabel>
-				<p:selectOneMenu filter="true" >
+				<p:outputLabel value="Estado: "/>
+				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" >
 					<f:selectItem itemValue="" itemLabel="Selecione um estado"  />
 				</p:selectOneMenu>
 			</h:panelGrid>

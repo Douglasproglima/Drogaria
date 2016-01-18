@@ -16,7 +16,16 @@ import br.pro.delfino.drogaria.domain.Cidade;
 @ManagedBean
 @ViewScoped
 public class CidadeBean implements Serializable{
+	private Cidade cidade;
 	private List<Cidade> cidades;
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+	
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
 	
 	public List<Cidade> getCidades() {
 		return cidades;
@@ -35,5 +44,9 @@ public class CidadeBean implements Serializable{
 			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
 			erro.printStackTrace();
 		}
+	}
+	
+	public void novo(){
+		cidade = new Cidade();
 	}
 }
