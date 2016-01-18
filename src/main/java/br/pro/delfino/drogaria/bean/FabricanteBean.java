@@ -41,7 +41,7 @@ public class FabricanteBean implements Serializable{
 		try {
 			FabricanteDAO fabricanteDAO =  new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();	
-		} catch (Exception erro) {
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
 			erro.printStackTrace();
 		}
@@ -54,20 +54,35 @@ public class FabricanteBean implements Serializable{
 	public void salvar(){
 		try {
 			FabricanteDAO fabricanteDAO =  new FabricanteDAO();
-			fabricanteDAO.salvar(fabricante);
+			fabricanteDAO.merge(fabricante);
 			
 			novo();
 			fabricantes = fabricanteDAO.listar();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");
-		} catch (Exception erro) {
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}
 	}
 	
 	public void excluir(ActionEvent evento){
+		try {
+			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
+			
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.excluir(fabricante);
+			
+			fabricantes = fabricanteDAO.listar();
+			
+			Messages.addGlobalInfo("Fabricante: "+fabricante.getDescricao());	
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento){
 		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
-		Messages.addGlobalInfo("Fabricante: "+fabricante.getDescricao());
 	}	
 }

@@ -44,7 +44,7 @@ public class EstadoBean implements Serializable{
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 			
-		} catch (Exception erro) {
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
 			erro.printStackTrace();
 		}
@@ -57,7 +57,7 @@ public class EstadoBean implements Serializable{
 	public void salvar(){
 		try {
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estadoDAO.salvar(estado);
+			estadoDAO.merge(estado);
 			
 			novo();
 			
@@ -65,13 +65,30 @@ public class EstadoBean implements Serializable{
 			estados = estadoDAO.listar();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");	
-		} catch (Exception erro) {
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
-			erro.printStackTrace();
+			erro.printStackTrace(); //Pilha de execução no catina.out
 		}
 	}
 	
 	public void excluir(ActionEvent evento){
+		try {
+			estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+			
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO.excluir(estado);
+			
+			//Após excluir regarrega a listagem.
+			estados = estadoDAO.listar();
+			
+			Messages.addGlobalInfo("Estado: " + estado.getNome() + " - "+estado.getSigla());	
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento){
 		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 		Messages.addGlobalInfo("Estado: " + estado.getNome() + " - "+estado.getSigla());
 	}
