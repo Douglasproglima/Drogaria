@@ -9,8 +9,8 @@
 	<title>Cidades</title>
 </h:head>
 <h:body>
+	<p:growl id="mensagem" />
 	<h:form id="formListagem">
-		
 		<p:panel header="Cidades - Listagem">
 			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
 						 paginator="true" 
@@ -21,7 +21,7 @@
 					<p:commandButton value="Novo"  
 									 actionListener="#{cidadeBean.novo()}" 
 									 oncomplete="PF('dialogo').show();"
-									 update=":formCadastro:painelCadastro" />
+									 update=":mensagem :formCadastro:painelCadastro"/>
 				</f:facet>
 
 				<p:column headerText="Cidade" filterBy="#{cursorCidade.nome}" sortBy="#{cursorCidade.nome}">
@@ -49,11 +49,15 @@
 				<p:outputLabel value="Estado: "/>
 				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" >
 					<f:selectItem itemValue="" itemLabel="Selecione um estado"  />
+					<f:selectItems value="#{cidadeBean.estados}" var="estadoListagem" 
+								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.nome}"/>
 				</p:selectOneMenu>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" 
+							     
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
