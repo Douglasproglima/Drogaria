@@ -48,15 +48,15 @@
 
 				<p:outputLabel value="Estado: "/>
 				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" >
-					<f:selectItem itemValue="" itemLabel="Selecione um estado"  />
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado"  />
 					<f:selectItems value="#{cidadeBean.estados}" var="estadoListagem" 
-								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.nome}"/>
+								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.nome} - #{estadoListagem.sigla}"/>
 				</p:selectOneMenu>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" 
-							     
+							     actionListener="#{cidadeBean.salvar()}"
 							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

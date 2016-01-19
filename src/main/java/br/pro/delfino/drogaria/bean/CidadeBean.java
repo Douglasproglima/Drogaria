@@ -69,4 +69,22 @@ public class CidadeBean implements Serializable{
 			erro.printStackTrace();
 		}
 	}
+	
+	public void salvar(){
+		try {
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			cidadeDAO.merge(cidade);
+			
+			cidade = new Cidade();
+			cidades = cidadeDAO.listar();
+			
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();
+			
+			Messages.addGlobalInfo("Registro salvo com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
 }
