@@ -33,4 +33,10 @@ public class GenericDomain implements Serializable {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
+	
+	//OmniFaces - converter="omnifaces.SelectItemsConverter" que ficará na view
+	 @Override
+	 public String toString() {
+	     return String.format("%s[codigo=%d]", getClass().getSimpleName(), getCodigo());
+	 }
 }

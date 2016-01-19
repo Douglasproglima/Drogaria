@@ -47,8 +47,8 @@
 				<p:inputText value="#{cidadeBean.cidade.nome}" maxlength="50" size="30" />
 
 				<p:outputLabel value="Estado: "/>
-				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" >
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado"  />
+				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" converter="omnifaces.SelectItemsConverter" >
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />
 					<f:selectItems value="#{cidadeBean.estados}" var="estadoListagem" 
 								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.nome} - #{estadoListagem.sigla}"/>
 				</p:selectOneMenu>
