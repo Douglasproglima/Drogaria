@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -86,5 +87,25 @@ public class CidadeBean implements Serializable{
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}
+	}
+	
+	public void excluir(ActionEvent evento){
+		try {
+			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
+			
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			cidadeDAO.excluir(cidade);
+			
+			cidades = cidadeDAO.listar();
+			
+			Messages.addGlobalInfo("Registro removido com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento){
+		
 	}
 }

@@ -81,7 +81,7 @@ public class EstadoBean implements Serializable{
 			//Após excluir regarrega a listagem.
 			estados = estadoDAO.listar();
 			
-			Messages.addGlobalInfo("Estado: " + estado.getNome() + " - "+estado.getSigla());	
+			Messages.addGlobalInfo("Registro removido com sucesso.");	
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
 			erro.printStackTrace();

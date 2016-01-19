@@ -19,7 +19,7 @@
 						 rows="5">
 				<f:facet name="header">
 					<p:commandButton value="Novo"  
-									 actionListener="#{cidadeBean.novo()}" 
+									 actionListener="#{cidadeBean.novo}" 
 									 oncomplete="PF('dialogo').show();"
 									 update=":mensagem :formCadastro:painelCadastro"/>
 				</f:facet>
@@ -35,8 +35,23 @@
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" 
+									 update=":formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>			
 		</p:panel>
 	</h:form>
 
@@ -56,7 +71,7 @@
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" 
-							     actionListener="#{cidadeBean.salvar()}"
+							     actionListener="#{cidadeBean.salvar}"
 							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
