@@ -36,7 +36,7 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" 
-									 update=":formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
 					</p:commandButton>
 				
@@ -58,9 +58,9 @@
 	<p:dialog header="Cidades - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painelCadastro" columns="2">
-				<p:outputLabel value="Cidade: "></p:outputLabel>
+				<p:outputLabel value="Cidade: "/>
 				<p:inputText value="#{cidadeBean.cidade.nome}" maxlength="50" size="30" />
-
+				
 				<p:outputLabel value="Estado: "/>
 				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}" converter="omnifaces.SelectItemsConverter" >
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />

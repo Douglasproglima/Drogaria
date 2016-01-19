@@ -106,6 +106,15 @@ public class CidadeBean implements Serializable{
 	}
 	
 	public void editar(ActionEvent evento){
-		
+		try {
+			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
+			
+			//Instânciando o estado para mostrar o campo list do botão novo.
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();	
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao selecionar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 }

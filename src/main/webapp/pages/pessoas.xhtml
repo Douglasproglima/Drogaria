@@ -9,106 +9,137 @@
 	<title>Pessoas</title>
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
 		<p:panel header="Pessoas - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{pessoaBean.pessoas}"
+						 var="cursorPessoa" 
+						 rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo"  
+									 actionListener="#{pessoaBean.novo}" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":mensagem :formCadastro:painelCadastro"/>
 				</f:facet>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" filterBy="#{cursorPessoa.nome}" sortBy="#{cursorPessoa.nome}">
 				</p:column>
 
 				<p:column headerText="CPF">
+					<h:outputText value="#{cursorPessoa.cpf}" />
 				</p:column>
 
 				<p:column headerText="RG">
+					<h:outputText value="#{cursorPessoa.rg}" />
 				</p:column>
 
 				<p:column headerText="Rua">
+					<h:outputText value="#{cursorPessoa.rua}" />
 				</p:column>
 				
 				<p:column headerText="Número">
+					<h:outputText value="#{cursorPessoa.numero}" />
 				</p:column>
 
 				<p:column headerText="Bairro">
+					<h:outputText value="#{cursorPessoa.bairro}" />
 				</p:column>
 				
 				<p:column headerText="Cep">
+					<h:outputText value="#{cursorPessoa.cep}" />
 				</p:column>
 
 				<p:column headerText="Complemento">
+					<h:outputText value="#{cursorPessoa.complemento}" />
 				</p:column>				
 
 				<p:column headerText="Telefone">
+					<h:outputText value="#{cursorPessoa.telefone}" />
 				</p:column>
 				
 				<p:column headerText="Celular">
+					<h:outputText value="#{cursorPessoa.celular}" />
 				</p:column>
 				
 				<p:column headerText="E-mail">
+					<h:outputText value="#{cursorPessoa.email}" />
 				</p:column>
 				
-				<p:column headerText="Cidade">
-				</p:column>
-																
-				<p:column headerText="CPF">
-				</p:column>
-				
-				<p:column headerText="CPF">
+				<p:column headerText="Cidade" filterBy="#{cursorPessoa.cidade.nome}" sortBy="#{cursorPessoa.cidade.nome}">
+					<h:outputText value="#{cursorPessoa.cidade.nome}" />
 				</p:column>
 																
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" 
+									 update=":formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						<f:attribute name="pessoaSelecionada" value="#{cursorPessoa}" />
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{pessoaBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="pessoaSelecionada" value="#{cursorPessoa}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>	
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Pessoas - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="3">
-				<p:outputLabel value="Nome: "></p:outputLabel>
-				<p:inputText maxlength="50" size="45" />
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="3">
+				<p:outputLabel value="Nome: "/>
+				<p:inputText value="#{pessoaBean.pessoa.nome}" maxlength="50" size="45" />
 				
-				<p:outputLabel value="CPF: "></p:outputLabel>
-				<p:inputText maxlength="14" size="15" />
+				<p:outputLabel value="CPF: "/>
+				<p:inputText value="#{pessoaBean.pessoa.cpf}" maxlength="14" size="15" />
 				
-				<p:outputLabel value="RG: "></p:outputLabel>
-				<p:inputText maxlength="12" size="15" />
+				<p:outputLabel value="RG: "/>
+				<p:inputText value="#{pessoaBean.pessoa.rg}" maxlength="12" size="15" />
 				
-				<p:outputLabel value="Rua: "></p:outputLabel>
-				<p:inputText maxlength="100" size="45" />
+				<p:outputLabel value="Rua: "/>
+				<p:inputText value="#{pessoaBean.pessoa.rua}" maxlength="100" size="45" />
 				
-				<p:outputLabel value="Número: "></p:outputLabel>
-				<p:inputText maxlength="6" size="15" />
+				<p:outputLabel value="Número: "/>
+				<p:inputText value="#{pessoaBean.pessoa.numero}" maxlength="6" size="15" />
 				
-				<p:outputLabel value="Bairro: "></p:outputLabel>
-				<p:inputText maxlength="50" size="45" />
+				<p:outputLabel value="Bairro: "/>
+				<p:inputText value="#{pessoaBean.pessoa.bairro}" maxlength="50" size="45" />
 				
-				<p:outputLabel value="Cep: "></p:outputLabel>
-				<p:inputText maxlength="10" size="15" />
+				<p:outputLabel value="Cep: "/>
+				<p:inputText value="#{pessoaBean.pessoa.cep}" maxlength="10" size="15" />
 				
-				<p:outputLabel value="Complemento: "></p:outputLabel>
-				<p:inputText maxlength="50" size="45" />
+				<p:outputLabel value="Complemento: "/>
+				<p:inputText value="#{pessoaBean.pessoa.complemento}" maxlength="50" size="45" />
 				
-				<p:outputLabel value="Telefone: "></p:outputLabel>
-				<p:inputText maxlength="13" size="15" />
+				<p:outputLabel value="Telefone: "/>
+				<p:inputText value="#{pessoaBean.pessoa.telefone}" maxlength="13" size="15" />
 				
-				<p:outputLabel value="Celular: "></p:outputLabel>
-				<p:inputText maxlength="14" size="15" />
+				<p:outputLabel value="Celular: "/>
+				<p:inputText value="#{pessoaBean.pessoa.celular}" maxlength="14" size="15" />
 				
-				<p:outputLabel value="E-Mail: "></p:outputLabel>
-				<p:inputText maxlength="50" size="45" />
+				<p:outputLabel value="E-Mail: "/>
+				<p:inputText value="#{pessoaBean.pessoa.email}" maxlength="50" size="45" />
 				
-				<p:outputLabel value="Cidade: "></p:outputLabel>
-				<p:selectOneMenu filter="true" >
-					<f:selectItem itemValue="" itemLabel="Selecione uma cidade"  />
+				<p:outputLabel value="Cidade: "/>
+				<p:selectOneMenu filter="true" value="#{pessoaBean.pessoa.cidade}" converter="omnifaces.SelectItemsConverter" >
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma cidade" />
+					<f:selectItems value="#{ pessoaBean.cidades}" var="cidadeListagem" 
+								  itemValue="#{cidadeListagem}" itemLabel="#{cidadeListagem.nome}"/>
 				</p:selectOneMenu>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" 
+							     actionListener="#{pessoaBean.salvar}"
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
