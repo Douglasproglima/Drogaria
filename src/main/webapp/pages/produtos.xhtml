@@ -6,61 +6,116 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cidades</title>
+	<title>Produtos</title>
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
 		<p:panel header="Produtos - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{produtoBean.produtos}"
+						 var="cursorProduto" 
+						 rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo"  
+									 actionListener="#{produtoBean.novo}" type="org.omnifaces" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":mensagem :formCadastro:painelCadastro">
+					
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" filterBy="#{cursorProduto.descricao}" sortBy="#{cursorProduto.descricao}">
+					<h:outputText value="#{cursorProduto.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Qtde">
+					<h:outputText value="#{cursorProduto.qtde}" />
+				</p:column>
+				
+				<p:column headerText="Valor Compra">
+					<h:outputText value="#{cursorProduto.valorCompra}">
+						<f:convertNumber currencyCode="BRL" type="currency" />
+					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Quantidade">
+				<p:column headerText="Valor Venda">
+					<h:outputText value="#{cursorProduto.valorVenda}">
+						<f:convertNumber currencyCode="BRL" type="currency" />
+					</h:outputText>
 				</p:column>
-
-				<p:column headerText="Valor de Compra">
-				</p:column>
-
-				<p:column headerText="Valor de Venda">
-				</p:column>
-
-				<p:column headerText="Fabricante">
+				
+				<p:column headerText="Fabricante" filterBy="#{cursorProduto.fabricante.descricao}" sortBy="#{cursorProduto.fabricante.descricao}">
+					<h:outputText value="#{cursorProduto.fabricante.descricao}" />
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{produtoBean.editar}" 
+									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						
+						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{produtoBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>			
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Descrição: "></p:outputLabel>
-				<p:inputText maxlength="150" size="45" />
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="2">
+				<p:outputLabel for="idDescricao" value="Descrição: "/>
+				<p:inputText id="idDescricao" value="#{produtoBean.produto.descricao}" maxlength="50" size="30" 
+							 required="true" requiredMessage="O campo Descrição: é obrigatório."/>
 
-				<p:outputLabel value="Quantidade: "></p:outputLabel>
-				<p:inputText maxlength="5" size="10" />
-
-				<p:outputLabel value="Valor de Compra: "></p:outputLabel>
-				<p:inputText maxlength="7" size="10" />
-
-				<p:outputLabel value="Valor de Venda: "></p:outputLabel>
-				<p:inputText maxlength="7" size="10" />
-
-				<p:outputLabel value="Fabricante: "></p:outputLabel>
-				<p:selectOneMenu filter="true" >
-					<f:selectItem itemValue="" itemLabel="Selecione um fabricante"  />
+				<p:outputLabel for="idQtde" value="Qtde: "/>
+				<p:inputText id="idQtde" value="#{produtoBean.produto.qtde}" maxlength="5" size="10" 
+							 required="true" requiredMessage="O campo Qtde é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Qtde Venda."/>
+							 
+				<p:outputLabel for="idValorCompra" value="Valor Compra: "/>
+				<p:inputText id="idValorCompra" value="#{produtoBean.produto.valorCompra}" maxlength="7" size="10" 
+							 required="true" requiredMessage="O campo Valor Compra é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Valor Compra.">
+				
+					<f:convertNumber minFractionDigits="2" />
+				</p:inputText>
+							 
+				<p:outputLabel for="idValorVenda" value="Valor Venda: "/>
+				<p:inputText id="idValorVenda" value="#{produtoBean.produto.valorVenda}" maxlength="5" size="10" 
+							 required="true" requiredMessage="O campo Valor Venda é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Valor Venda.">
+							 
+					<f:convertNumber minFractionDigits="2" />
+				</p:inputText>						 							 				
+				
+				<p:outputLabel for="idFabricante" value="Fabricante: "/>
+				<p:selectOneMenu id="idFabricante" filter ="true" value="#{produtoBean.produto.fabricante}" converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Fabricante é obrigatório.">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um fabricante" />
+					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricanteListagem" 
+								  itemValue="#{fabricanteListagem}" itemLabel="#{fabricanteListagem.descricao}"/>
 				</p:selectOneMenu>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" 
+							     actionListener="#{produtoBean.salvar}"
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

@@ -40,12 +40,14 @@
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						
 						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 					</p:commandButton>
 				
 					<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}" 
 									 update=":mensagem :formListagem:tabelaListagem" >
+						
 						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
 						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
 					</p:commandButton>
@@ -64,7 +66,7 @@
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idNome" value="Cidade: "/>
 				<p:inputText id="idNome" value="#{cidadeBean.cidade.nome}" maxlength="50" size="30" 
-							 required="true" requiredMessage="O campo Cidade: é obrigatório."/>
+							 required="true" requiredMessage="O campo Cidade é obrigatório."/>
 				
 				<p:outputLabel for="idEstado" value="Estado: "/>
 				<p:selectOneMenu id="idEstado" filter ="true" value="#{cidadeBean.cidade.estado}" converter="omnifaces.SelectItemsConverter" 

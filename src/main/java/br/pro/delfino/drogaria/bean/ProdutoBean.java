@@ -8,6 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Messages;
+
+import br.pro.delfino.drogaria.dao.FabricanteDAO;
+import br.pro.delfino.drogaria.dao.ProdutoDAO;
 import br.pro.delfino.drogaria.domain.Fabricante;
 import br.pro.delfino.drogaria.domain.Produto;
 
@@ -39,22 +43,74 @@ public class ProdutoBean implements Serializable{
 	
 	@PostConstruct
 	public void listar(){
-		
+		try {
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
+			erro.printStackTrace();
+		}		
 	}
 	
 	public void novo(){
-		
+		try {
+			produto = new Produto();
+			
+			//Instânciando o fabricante para mostrar o campo list do botão novo.
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao inserir uma nova cidade, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 	
 	public void salvar(){
-		
+		try {
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO.merge(produto);
+			
+			produto = new Produto();
+			produtos = produtoDAO.listar();
+			
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar();
+			
+			Messages.addGlobalInfo("Registro salvo com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}		
 	}
 	
 	public void excluir(ActionEvent evento){
-		
+		try {
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO.excluir(produto);
+			
+			produtos = produtoDAO.listar();
+			
+			Messages.addGlobalInfo("Registro removido com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}		
 	}
 	
 	public void editar(ActionEvent evento){
-		
+		try {
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			
+			//Instânciando o estado para mostrar o campo list do botão novo.
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar();
+			
+			Messages.addGlobalInfo("Registro alterado com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}		
 	}	
 }

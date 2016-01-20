@@ -112,8 +112,10 @@ public class CidadeBean implements Serializable{
 			//Instânciando o estado para mostrar o campo list do botão novo.
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();	
+		
+			Messages.addGlobalInfo("Registro alterado com sucesso.");
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao selecionar o registro, erro: "+ erro);
+			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}
 	}

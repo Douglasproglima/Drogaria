@@ -75,7 +75,7 @@ public class FabricanteBean implements Serializable{
 			
 			fabricantes = fabricanteDAO.listar();
 			
-			Messages.addGlobalInfo("Fabricante: "+fabricante.getDescricao());	
+			Messages.addGlobalInfo("Registro excluído com sucesso.");	
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
 			erro.printStackTrace();
@@ -84,5 +84,7 @@ public class FabricanteBean implements Serializable{
 	
 	public void editar(ActionEvent evento){
 		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
+		
+		Messages.addGlobalInfo("Registro alterado com sucesso.");
 	}	
 }
