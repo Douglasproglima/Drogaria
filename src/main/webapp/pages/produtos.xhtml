@@ -85,22 +85,30 @@
 				<p:outputLabel for="idQtde" value="Qtde: "/>
 				<p:inputText id="idQtde" value="#{produtoBean.produto.qtde}" maxlength="5" size="10" 
 							 required="true" requiredMessage="O campo Qtde é obrigatório."
-							 converterMessage="Informe um valor válido para o campo Qtde Venda."/>
+							 converterMessage="Informe um valor válido para o campo Qtde Venda."
+							 validatorMessage="Informe um valor entre 1 e 1000 para o campo Qtde.">
+							 
+					<f:validateLongRange minimum="1" maximum="1000" />
+				</p:inputText>
 							 
 				<p:outputLabel for="idValorCompra" value="Valor Compra: "/>
 				<p:inputText id="idValorCompra" value="#{produtoBean.produto.valorCompra}" maxlength="7" size="10" 
 							 required="true" requiredMessage="O campo Valor Compra é obrigatório."
-							 converterMessage="Informe um valor válido para o campo Valor Compra">
+							 converterMessage="Informe um valor válido para o campo Valor Compra"
+							 validatorMessage="Informe um valor entre 0.01 e 9999 no campo Valor Compra.">
 				
 					<f:convertNumber minFractionDigits="2" />
+					<f:validateDoubleRange minimum="0.01" maximum="9999"/>
 				</p:inputText>
 							 
 				<p:outputLabel for="idValorVenda" value="Valor Venda: "/>
 				<p:inputText id="idValorVenda" value="#{produtoBean.produto.valorVenda}" maxlength="5" size="10" 
 							 required="true" requiredMessage="O campo Valor Venda é obrigatório."
-							 converterMessage="Informe um valor válido para o campo Valor Venda">
+							 converterMessage="Informe um valor válido para o campo Valor Venda"
+							 validatorMessage="Informe um valor entre 0.01 e 9999 no campo Valor Venda.">
 							 
 					<f:convertNumber minFractionDigits="2" />
+					<f:validateDoubleRange minimum="0.01" maximum="9999"/>
 				</p:inputText>						 							 				
 				
 				<p:outputLabel for="idFabricante" value="Fabricante: "/>
