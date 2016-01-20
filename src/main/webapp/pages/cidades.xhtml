@@ -19,9 +19,12 @@
 						 rows="5">
 				<f:facet name="header">
 					<p:commandButton value="Novo"  
-									 actionListener="#{cidadeBean.novo}" 
+									 actionListener="#{cidadeBean.novo}" type="org.omnifaces" 
 									 oncomplete="PF('dialogo').show();"
-									 update=":mensagem :formCadastro:painelCadastro"/>
+									 update=":mensagem :formCadastro:painelCadastro">
+					
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Cidade" filterBy="#{cursorCidade.nome}" sortBy="#{cursorCidade.nome}">
@@ -38,6 +41,7 @@
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						<f:attribute name="cidadeSelecionada" value="#{cursorCidade}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 					</p:commandButton>
 				
 					<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}" 
