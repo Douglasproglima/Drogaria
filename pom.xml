@@ -75,5 +75,12 @@
 			<version>1.12.1</version>
 		</dependency>
 
+		<!-- Servlet - Carregar Hibernate junto ao Apache Tomcat -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 	</dependencies>
 </project>
