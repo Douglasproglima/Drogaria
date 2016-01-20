@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Clientes</title>
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
+		<p:panel header="Clientes - Listagem">
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{clienteBean.clientes}"
+						 var="cursorCliente" 
+						 rows="5">
+				<f:facet name="header">
+					<p:commandButton value="Novo"  
+									 actionListener="#{clienteBean.novo}" type="org.omnifaces" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":mensagem :formCadastro:painelCadastro">
+					
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+				</f:facet>
+
+				<p:column headerText="Cliente" filterBy="#{cursorCliente.pessoa.nome}" sortBy="#{cursorCliente.pessoa.nome}">
+					<h:outputText value="#{cursorCliente.pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="Data do Cadastro">
+					<h:outputText value="#{cursorCliente.dataCadastro}" />
+				</p:column>
+
+				<p:column headerText="Ativo">
+					<h:outputText value="#{cursorCliente.ativo}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{clienteBean.editar}" 
+									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						
+						<f:attribute name="clienteSelecionado" value="#{cursorCliente}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{clienteBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="clienteSelecionado" value="#{cursorCliente}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>			
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="Clientes - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="2">
+				<p:outputLabel for="idCliente" value="Cliente: "/>
+				<p:selectOneMenu id="idCliente" filter ="true" value="#{clienteBean.cliente.pessoa}" 
+								 converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Cliente é obrigatório.">
+					
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um cliente" />
+					<f:selectItems value="#{clienteBean.pessoas}" var="clienteListagem" 
+								  itemValue="#{clienteListagem}" itemLabel="#{clienteListagem.nome}"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Data: "/>
+				<p:calendar />
+				
+				<p:outputLabel value="Ativo:"></p:outputLabel>
+				<p:selectBooleanCheckbox />
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+							     actionListener="#{clienteBean.salvar}"
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

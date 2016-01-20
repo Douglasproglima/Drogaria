@@ -90,7 +90,7 @@
 				<p:outputLabel for="idValorCompra" value="Valor Compra: "/>
 				<p:inputText id="idValorCompra" value="#{produtoBean.produto.valorCompra}" maxlength="7" size="10" 
 							 required="true" requiredMessage="O campo Valor Compra é obrigatório."
-							 converterMessage="Informe um valor válido para o campo Valor Compra.">
+							 converterMessage="Informe um valor válido para o campo Valor Compra">
 				
 					<f:convertNumber minFractionDigits="2" />
 				</p:inputText>
@@ -98,7 +98,7 @@
 				<p:outputLabel for="idValorVenda" value="Valor Venda: "/>
 				<p:inputText id="idValorVenda" value="#{produtoBean.produto.valorVenda}" maxlength="5" size="10" 
 							 required="true" requiredMessage="O campo Valor Venda é obrigatório."
-							 converterMessage="Informe um valor válido para o campo Valor Venda.">
+							 converterMessage="Informe um valor válido para o campo Valor Venda">
 							 
 					<f:convertNumber minFractionDigits="2" />
 				</p:inputText>						 							 				
