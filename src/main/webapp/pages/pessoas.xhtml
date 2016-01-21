@@ -38,34 +38,6 @@
 				<p:column headerText="RG">
 					<h:outputText value="#{cursorPessoa.rg}" />
 				</p:column>
-
-				<p:column headerText="Rua">
-					<h:outputText value="#{cursorPessoa.rua}" />
-				</p:column>
-				
-				<p:column headerText="Número">
-					<h:outputText value="#{cursorPessoa.numero}" />
-				</p:column>
-
-				<p:column headerText="Bairro">
-					<h:outputText value="#{cursorPessoa.bairro}" />
-				</p:column>
-				
-				<p:column headerText="Cep">
-					<h:outputText value="#{cursorPessoa.cep}" />
-				</p:column>
-
-				<p:column headerText="Complemento">
-					<h:outputText value="#{cursorPessoa.complemento}" />
-				</p:column>				
-
-				<p:column headerText="Telefone">
-					<h:outputText value="#{cursorPessoa.telefone}" />
-				</p:column>
-				
-				<p:column headerText="Celular">
-					<h:outputText value="#{cursorPessoa.celular}" />
-				</p:column>
 				
 				<p:column headerText="E-mail">
 					<h:outputText value="#{cursorPessoa.email}" />
@@ -107,7 +79,7 @@
 							 required="true" requiredMessage="O campo Nome é obrigatório."/>
 				
 				<p:outputLabel for="idCPF" value="CPF: "/>
-				<p:inputText id="idCPF" value="#{pessoaBean.pessoa.cpf}" maxlength="14" size="15" 
+				<p:inputMask id="idCPF" value="#{pessoaBean.pessoa.cpf}" size="15" mask="999.999.999-99"
 							 required="true" requiredMessage="O campo CPF é obrigatório."/>
 				
 				<p:outputLabel value="RG: "/>
@@ -129,14 +101,22 @@
 				<p:inputText value="#{pessoaBean.pessoa.complemento}" maxlength="50" size="45" />
 				
 				<p:outputLabel value="Telefone: "/>
-				<p:inputText value="#{pessoaBean.pessoa.telefone}" maxlength="13" size="15" />
+				<p:inputMask value="#{pessoaBean.pessoa.telefone}" mask="(99)9999-9999" size="15"/>
 				
 				<p:outputLabel value="Celular: "/>
-				<p:inputText value="#{pessoaBean.pessoa.celular}" maxlength="14" size="15" />
+				<p:inputMask value="#{pessoaBean.pessoa.celular}" mask="(99)99999-9999" size="15"/>
 				
 				<p:outputLabel for="idEmail" value="E-Mail: "/>
 				<p:inputText id="idEmail" value="#{pessoaBean.pessoa.email}" maxlength="50" size="45" 
 							 required="true" requiredMessage="O campo E-Mail é obrigatório."/>
+				
+				<p:outputLabel for="idEstado" value="Estado: "/>
+				<p:selectOneMenu id="idEstado" filter="true" converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Estado é obrigatório.">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um Estado" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estadoListagem" 
+								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.sigla}"/>
+				</p:selectOneMenu>
 				
 				<p:outputLabel for="idCidade" value="Cidade: "/>
 				<p:selectOneMenu id="idCidade" filter="true" value="#{pessoaBean.pessoa.cidade}" converter="omnifaces.SelectItemsConverter" 

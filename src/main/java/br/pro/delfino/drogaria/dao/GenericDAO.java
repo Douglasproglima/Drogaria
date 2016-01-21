@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.pro.delfino.drogaria.util.HibernateUtil;
@@ -50,6 +51,24 @@ public class GenericDAO<Entidade> {
 			 * 4 - Criteria é a forma mais atual e que mais utiliza orientação a OO;
 			 */
 			Criteria consulta = sessao.createCriteria(classe);
+			List<Entidade> resultado = consulta.list();
+			
+			return resultado;
+			
+		} catch (RuntimeException erro) {
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Entidade> listar(String campoOrdenacao){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		
+		try {
+			Criteria consulta = sessao.createCriteria(classe);
+			consulta.addOrder(Order.asc(campoOrdenacao));
 			List<Entidade> resultado = consulta.list();
 			
 			return resultado;

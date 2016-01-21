@@ -111,7 +111,7 @@ public class CidadeBean implements Serializable{
 			
 			//Instânciando o estado para mostrar o campo list do botão novo.
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();	
+			estados = estadoDAO.listar("nome");	
 		
 			Messages.addGlobalInfo("Registro alterado com sucesso.");
 		} catch (RuntimeException erro) {
