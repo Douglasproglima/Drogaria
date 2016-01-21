@@ -71,6 +71,7 @@ public class CidadeDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar(){
 		Long codigoCidade = 7L;
 
@@ -92,4 +93,19 @@ public class CidadeDAOTest {
 			System.out.println("Registro não encontrado para alteração");
 		}
 	}
+	
+	@Test
+	public void buscarPorEstado(){
+		Long estadoCodigo = 1L;
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		List<Cidade> resultado = cidadeDAO.buscarPorEstado(estadoCodigo);
+		
+		System.out.println("Total de Registro: "+resultado.size());
+		for (Cidade cidade : resultado) {
+			System.out.println("Cidade: "+cidade.getCodigo()+" - "+cidade.getNome());
+			System.out.println("Estado: "+cidade.getEstado().getSigla()+" - "+cidade.getEstado().getNome());
+			System.out.println();
+		}
+	}	
 }
