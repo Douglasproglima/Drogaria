@@ -111,20 +111,24 @@
 							 required="true" requiredMessage="O campo E-Mail é obrigatório."/>
 				
 				<p:outputLabel for="idEstado" value="Estado: "/>
-				<p:selectOneMenu id="idEstado" filter="true" converter="omnifaces.SelectItemsConverter" 
+				<p:selectOneMenu id="idEstado" filter="true" value="#{pessoaBean.estado}"
+								 converter="omnifaces.SelectItemsConverter" 
 								 required="true" requiredMessage="O campo Estado é obrigatório.">
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione um Estado" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estadoListagem" 
 								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.sigla}"/>
+					<p:ajax listener="#{pessoaBean.popular}" update=":formCadastro:idCidade"/>
 				</p:selectOneMenu>
 				
 				<p:outputLabel for="idCidade" value="Cidade: "/>
-				<p:selectOneMenu id="idCidade" filter="true" value="#{pessoaBean.pessoa.cidade}" converter="omnifaces.SelectItemsConverter" 
+				<p:selectOneMenu id="idCidade" filter="true" value="#{pessoaBean.pessoa.cidade}" 
+								 converter="omnifaces.SelectItemsConverter" 
 								 required="true" requiredMessage="O campo Cidade é obrigatório.">
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma cidade" />
 					<f:selectItems value="#{ pessoaBean.cidades}" var="cidadeListagem" 
 								  itemValue="#{cidadeListagem}" itemLabel="#{cidadeListagem.nome}"/>
 				</p:selectOneMenu>
+				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">

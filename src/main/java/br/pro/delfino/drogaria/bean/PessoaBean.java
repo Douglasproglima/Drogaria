@@ -25,6 +25,8 @@ import br.pro.delfino.drogaria.domain.Pessoa;
 public class PessoaBean implements Serializable{
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
+	
+	private Estado estado;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
 	
@@ -43,6 +45,14 @@ public class PessoaBean implements Serializable{
 	
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+	
+	public Estado getEstado() {
+		return estado;
+	}
+	
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 	
 	public List<Estado> getEstados() {
@@ -131,5 +141,20 @@ public class PessoaBean implements Serializable{
 			Messages.addGlobalError("Erro ao selecionar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}		
-	}	
+	}
+	
+	//Método para popular o combo de cidades de acordo com o estado selecionado.
+	public void popular(){
+		try{
+			if(estado != null){
+				CidadeDAO cidadeDAO = new CidadeDAO();
+				cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
+			}else{
+				cidades = new ArrayList<>();
+			}
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao filtrar as cidades, erro: "+ erro);
+			erro.printStackTrace();
+		}	
+	}
 }
