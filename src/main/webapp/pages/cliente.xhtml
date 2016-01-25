@@ -31,12 +31,19 @@
 					<h:outputText value="#{cursorCliente.pessoa.nome}" />
 				</p:column>
 
+				<p:column headerText="CPF">
+					<p:inputMask value="#{cursorCliente.pessoa.cpf}" mask="99.999.999-99" disabled="true" />
+					
+				</p:column>
+
 				<p:column headerText="Data do Cadastro">
-					<h:outputText value="#{cursorCliente.dataCadastro}" />
+					<h:outputText value="#{cursorCliente.dataCadastro}" >
+						<f:convertDateTime locale="pt_br"/>
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Ativo">
-					<h:outputText value="#{cursorCliente.ativo}" />
+					<p:selectBooleanCheckbox value="#{cursorCliente.ativo}" disabled="true" />
 				</p:column>
 
 				<p:column headerText="Opções">

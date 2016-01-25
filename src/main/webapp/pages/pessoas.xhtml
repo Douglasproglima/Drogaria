@@ -83,8 +83,7 @@
 							 required="true" requiredMessage="O campo CPF é obrigatório."/>
 				
 				<p:outputLabel value="RG: "/>
-				<p:inputText value="#{pessoaBean.pessoa.rg}" maxlength="12" size="15" />
-				
+				<p:inputMask id="RG" mask="99.999.999-9" value="#{pessoaBean.pessoa.rg}" size="10"/>	
 				<p:outputLabel value="Rua: "/>
 				<p:inputText value="#{pessoaBean.pessoa.rua}" maxlength="100" size="45" />
 				
@@ -95,7 +94,7 @@
 				<p:inputText value="#{pessoaBean.pessoa.bairro}" maxlength="50" size="45" />
 				
 				<p:outputLabel value="Cep: "/>
-				<p:inputText value="#{pessoaBean.pessoa.cep}" maxlength="10" size="15" />
+				<p:inputMask value="#{pessoaBean.pessoa.cep}" maxlength="10" size="15" mask="99999-999"/>
 				
 				<p:outputLabel value="Complemento: "/>
 				<p:inputText value="#{pessoaBean.pessoa.complemento}" maxlength="50" size="45" />
@@ -112,8 +111,8 @@
 				
 				<p:outputLabel for="idEstado" value="Estado: "/>
 				<p:selectOneMenu id="idEstado" filter="true" value="#{pessoaBean.estado}"
-								 converter="omnifaces.SelectItemsConverter" 
-								 required="true" requiredMessage="O campo Estado é obrigatório.">
+								 converter="omnifaces.SelectItemsConverter">
+								 
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione um Estado" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estadoListagem" 
 								  itemValue="#{estadoListagem}" itemLabel="#{estadoListagem.sigla}"/>

@@ -22,6 +22,7 @@ public class ClienteBean implements Serializable{
 	private Cliente cliente;
 	private List<Cliente> clientes;
 	private List<Pessoa> pessoas;
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -45,7 +46,7 @@ public class ClienteBean implements Serializable{
 	public void listar(){
 		try {
 			ClienteDAO clienteDAO = new ClienteDAO();
-			clientes = clienteDAO.listar();	
+			clientes = clienteDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
 			erro.printStackTrace();
@@ -57,7 +58,7 @@ public class ClienteBean implements Serializable{
 			cliente = new Cliente();
 			
 			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoas = pessoaDAO.listar();
+			pessoas = pessoaDAO.listar("nome");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao inserir um novo cliente, erro: "+ erro);
 			erro.printStackTrace();
@@ -104,8 +105,6 @@ public class ClienteBean implements Serializable{
 			
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
-			
-			Messages.addGlobalInfo("Registro alterado com sucesso.");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
 			erro.printStackTrace();

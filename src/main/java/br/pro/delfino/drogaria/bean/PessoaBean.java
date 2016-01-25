@@ -86,6 +86,7 @@ public class PessoaBean implements Serializable{
 		try {
 			pessoa = new Pessoa();
 			
+			estado =  new Estado();
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 			
@@ -106,6 +107,8 @@ public class PessoaBean implements Serializable{
 			
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidades = cidadeDAO.listar();
+			
+			novo();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");
 		} catch (RuntimeException erro) {
