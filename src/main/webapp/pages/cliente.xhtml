@@ -80,14 +80,18 @@
 					
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione um cliente" />
 					<f:selectItems value="#{clienteBean.pessoas}" var="clienteListagem" 
-								  itemValue="#{clienteListagem}" itemLabel="#{clienteListagem.nome}"/>
+								  itemValue="#{clienteListagem}" itemLabel="#{clienteListagem.nome} (#{clienteListagem.cpf})"/>
+								  
 				</p:selectOneMenu>
 				
-				<p:outputLabel value="Data: "/>
-				<p:calendar />
+				<p:outputLabel for="idDtCadastro" value="Data de Cadastro: "/>
+				<p:calendar id="idDtCadastro" value="#{clienteBean.cliente.dataCadastro}" 
+							required="true" requiredMessage="O campo Data de Cadastro é obrigatório."
+							/>
 				
-				<p:outputLabel value="Ativo:"></p:outputLabel>
-				<p:selectBooleanCheckbox />
+				<p:outputLabel for="idAtivo" value="Ativo:" />
+				<p:selectBooleanCheckbox id="idAtivo" value="#{clienteBean.cliente.ativo}" 
+										 />
 				
 			</h:panelGrid>
 			
