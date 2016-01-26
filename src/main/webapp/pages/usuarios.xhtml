@@ -6,59 +6,106 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cidades</title>
+	<title>Usuários]</title>
+	<h:outputScript library="js" name="script.js" />
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
 		<p:panel header="Usuários - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{usuarioBean.usuarios}"
+						 var="cursorUsuario" 
+						 rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo"  
+									 actionListener="#{clienteBean.novo}" type="org.omnifaces" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":mensagem :formCadastro:painelCadastro">
+					
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Usuário" filterBy="#{cursorUsuario.pessoa.nome}" sortBy="#{cursorUsuario.pessoa.nome}">
+					<h:outputText value="#{cursorUsuario.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="CPF">
+					<p:inputMask value="#{cursorUsuario.pessoa.cpf}" mask="99.999.999-99" disabled="true" />
 				</p:column>
 
-				<p:column headerText="Tipo">
+				<p:column headerText="Tipo" sortBy="#{cursorUsuario.tipoFormatado}">
+					<h:outputText value="#{cursorUsuario.tipoFormatado}" />
 				</p:column>
 
-				<p:column headerText="Ativo">
+				<p:column headerText="Ativo" sortBy="#{cursorUsuario.ativoFormatado}">
+					<h:outputText value="#{cursorCliente.ativoFormatado}" />
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{usuarioBean.editar}" 
+									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						
+						<f:attribute name="usuarioSelecionado" value="#{cursorUsuario}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{usuarioBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="usuarioSelecionado" value="#{cursorUsuario}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>			
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Usuários - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Usuário:"></p:outputLabel>
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="2">
+				<p:outputLabel for="idUsuario" value="Cliente: "/>
+				<p:selectOneMenu id="idUsuario" filter ="true" value="#{usuarioBean.usuario.pessoa}" 
+								 converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Usuário é obrigatório.">
+					
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário" />
+					<f:selectItems value="#{usuarioBean.pessoas}" var="usuarioListagem" 
+								  itemValue="#{usuarioListagem}" itemLabel="#{usuarioListagem.nome} (#{usuarioListagem.cpf})"/>
+								  
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Usuário:" />
 				<p:selectOneMenu filter="true" >
 					<f:selectItem itemValue="" itemLabel="Selecione um usuário" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Senha: "></p:outputLabel>
+				
+				<p:outputLabel value="Senha: "/>
 				<p:inputText maxlength="8" size="10" />
-
-				<p:outputLabel value="Tipo: "></p:outputLabel>
+				
+				<p:outputLabel value="Tipo: "/>
 				<p:selectOneRadio>
 					<f:selectItem itemValue="A" itemLabel="Administrador"/>
 					<f:selectItem itemValue="G" itemLabel="Gerente"/>
 					<f:selectItem itemValue="B" itemLabel="Balconista"/>
 				</p:selectOneRadio>
-
-				<p:outputLabel value="Ativo:"></p:outputLabel>
-				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel for="idAtivo" value="Ativo:" />
+				<p:selectBooleanCheckbox id="idAtivo" value="#{clienteBean.cliente.ativo}" />
+				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" 
+							     actionListener="#{clienteBean.salvar}"
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
