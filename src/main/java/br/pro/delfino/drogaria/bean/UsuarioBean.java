@@ -10,7 +10,9 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.pro.delfino.drogaria.dao.PessoaDAO;
 import br.pro.delfino.drogaria.dao.UsuarioDAO;
+import br.pro.delfino.drogaria.domain.Cliente;
 import br.pro.delfino.drogaria.domain.Pessoa;
 import br.pro.delfino.drogaria.domain.Usuario;
 
@@ -54,18 +56,60 @@ public class UsuarioBean implements Serializable{
 	}
 	
 	public void novo(){
-		
+		try {
+			usuario = new Usuario();
+			
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao inserir um novo Usuário, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 	
 	public void salvar(){
-		
+		try {
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			usuarioDAO.merge(usuario);
+			
+			usuario = new Usuario();
+			usuarios = usuarioDAO.listar();
+			
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar();
+			
+			Messages.addGlobalInfo("Registro salvo com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 	
 	public void excluir(ActionEvent evento){
-		
+		try {
+			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			usuarioDAO.excluir(usuario);
+			
+			usuarios = usuarioDAO.listar();
+			
+			Messages.addGlobalInfo("Registro removido com sucesso.");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}
 	
 	public void editar(ActionEvent evento){
-		
+		try {
+			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+			
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
+			erro.printStackTrace();
+		}
 	}	
 }

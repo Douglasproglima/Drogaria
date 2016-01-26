@@ -20,7 +20,7 @@
 						 rows="5">
 				<f:facet name="header">
 					<p:commandButton value="Novo"  
-									 actionListener="#{clienteBean.novo}" type="org.omnifaces" 
+									 actionListener="#{usuarioBean.novo}" type="org.omnifaces" 
 									 oncomplete="PF('dialogo').show();"
 									 update=":mensagem :formCadastro:painelCadastro">
 					
@@ -71,7 +71,7 @@
 	<p:dialog header="Usuários - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painelCadastro" columns="2">
-				<p:outputLabel for="idUsuario" value="Cliente: "/>
+				<p:outputLabel for="idUsuario" value="Usuário: "/>
 				<p:selectOneMenu id="idUsuario" filter ="true" value="#{usuarioBean.usuario.pessoa}" 
 								 converter="omnifaces.SelectItemsConverter" 
 								 required="true" requiredMessage="O campo Usuário é obrigatório.">
@@ -82,29 +82,32 @@
 								  
 				</p:selectOneMenu>
 				
-				<p:outputLabel value="Usuário:" />
-				<p:selectOneMenu filter="true" >
-					<f:selectItem itemValue="" itemLabel="Selecione um usuário" />
-				</p:selectOneMenu>
+				<p:outputLabel for="idSenha" value="Senha: "/>
+				<p:password id="idSenha" maxlength="8" size="10" value="#{usuarioBean.usuario.senha}"
+							required="true" requiredMessage="O campo Senha é obrigatório."
+							validatorMessage="Informe uma senha de 6 a 8 caracteres.">
+					
+					<f:validateLength minimum="6" maximum="8" />
+				</p:password >
 				
-				<p:outputLabel value="Senha: "/>
-				<p:inputText maxlength="8" size="10" />
-				
-				<p:outputLabel value="Tipo: "/>
-				<p:selectOneRadio>
+				<p:outputLabel for="idTipo" value="Tipo: "/>
+				<p:selectOneRadio id="idTipo" value="#{usuarioBean.usuario.tipo}" 
+								  required="true" requiredMessage="O campo Tipo é obrigatório.">
+								  
 					<f:selectItem itemValue="A" itemLabel="Administrador"/>
 					<f:selectItem itemValue="G" itemLabel="Gerente"/>
 					<f:selectItem itemValue="B" itemLabel="Balconista"/>
 				</p:selectOneRadio>
 				
 				<p:outputLabel for="idAtivo" value="Ativo:" />
-				<p:selectBooleanCheckbox id="idAtivo" value="#{clienteBean.cliente.ativo}" />
+				<p:selectBooleanCheckbox id="idAtivo" value="#{usuarioBean.usuario.ativo}"
+										 required="true" requiredMessage="O campo Ativo é obrigatório." />
 				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" 
-							     actionListener="#{clienteBean.salvar}"
+							     actionListener="#{usuarioBean.salvar}"
 							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

@@ -92,7 +92,8 @@
 							/>
 				
 				<p:outputLabel for="idAtivo" value="Ativo:" />
-				<p:selectBooleanCheckbox id="idAtivo" value="#{clienteBean.cliente.ativo}" />
+				<p:selectBooleanCheckbox id="idAtivo" value="#{clienteBean.cliente.ativo}"
+										 required="true" requiredMessage="O campo Ativo é obrigatório."/>
 				
 			</h:panelGrid>
 			
