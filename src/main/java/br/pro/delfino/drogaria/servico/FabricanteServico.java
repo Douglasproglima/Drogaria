@@ -18,44 +18,63 @@ import br.pro.delfino.drogaria.domain.Fabricante;
 @Path("fabricante")
 public class FabricanteServico {
 	@GET
-	public String listar(){
-		/*Tipos de Projetos
-		 * Json - Projeto nativo para se trabalhar com Java, atualmente a maioria dos desenvolvedores estão utilizando o Gson;
-		 * Gson - Projeto da google, onde o objetivo é pegar o objeto e transformar em Json;
-		 * */
-		
+	public String listar() {
+		/*
+		 * Tipos de Projetos Json - Projeto nativo para se trabalhar com Java,
+		 * atualmente a maioria dos desenvolvedores estão utilizando o Gson;
+		 * Gson - Projeto da google, onde o objetivo é pegar o objeto e
+		 * transformar em Json;
+		 */
+
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		List<Fabricante> fabricantes = fabricanteDAO.listar("descricao");
-	
+
 		Gson gson = new Gson();
-		String json =  gson.toJson(fabricantes);
-		
+		String json = gson.toJson(fabricantes);
+
 		return json;
 	}
-	
-	//http://127.0.0.1:8080/Drogaria/rest/fabricante/codigo ou 10 filtrando
+
+	// http://127.0.0.1:8080/Drogaria/rest/fabricante/codigo ou 10 filtrando
 	@GET
 	@Path("{codigo}")
-	public String buscar(@PathParam("codigo") Long codigo){
+	public String buscar(@PathParam("codigo") Long codigo) {
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		Fabricante fabricante = fabricanteDAO.buscar(codigo);
-		
+
 		Gson gson = new Gson();
-		String json =  gson.toJson(fabricante);
+		String json = gson.toJson(fabricante);
 		return json;
 	}
-	
-	//http://127.0.0.1:8080/Drogaria/rest/fabricante
+
+	// http://127.0.0.1:8080/Drogaria/rest/fabricante
+	//{"descricao": "FabricanteB"}
 	@POST
-	public String salvar( String jsonEntrada){
+	public String salvar(String jsonEntrada) {
 		Gson gson = new Gson();
 		Fabricante fabricante = gson.fromJson(jsonEntrada, Fabricante.class);
-		
+
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		fabricanteDAO.merge(fabricante);
-		
+
 		String jsonSaida = gson.toJson(fabricante);
-		
+
 		return jsonSaida;
 	}
+
+	// http://127.0.0.1:8080/Drogaria/rest/fabricante
+	//{"descricao": "FabricanteB", "codigo": "5"}
+	@POST
+	public String editar(String jsonEntrada) {
+		Gson gson = new Gson();
+		Fabricante fabricante = gson.fromJson(jsonEntrada, Fabricante.class);
+
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		fabricanteDAO.editar(fabricante);
+
+		String jsonSaida = gson.toJson(fabricante);
+
+		return jsonSaida;
+	}
+
 }
