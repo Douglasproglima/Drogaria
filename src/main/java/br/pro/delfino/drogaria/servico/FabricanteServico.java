@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
 import br.pro.delfino.drogaria.domain.Fabricante;
 
-//http://locahost:8080/Drogaria/rest/fabricante
+//http://127.0.0.1:8080/Drogaria/rest/fabricante
 @Path("fabricante")
 public class FabricanteServico {
 	@GET
@@ -30,10 +30,10 @@ public class FabricanteServico {
 		return json;
 	}
 	
-	//http://locahost:8080/Drogaria/rest/fabricante/codigo ou 10 filtrando
+	//http://127.0.0.1:8080/Drogaria/rest/fabricante/codigo ou 10 filtrando
 	@GET
 	@Path("{codigo}")
-	public String buscar(@PathParam("{codigo}") Long codigo){
+	public String buscar(@PathParam("codigo") Long codigo){
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		Fabricante fabricante = fabricanteDAO.buscar(codigo);
 		
