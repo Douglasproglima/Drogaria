@@ -85,12 +85,12 @@ public class PessoaBean implements Serializable{
 	public void novo(){
 		try {
 			pessoa = new Pessoa();
-			
 			estado =  new Estado();
+			
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 			
-			cidades = new ArrayList<Cidade>();
+			cidades = new ArrayList<>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao inserir uma nova pessoa, erro: "+ erro);
 			erro.printStackTrace();
@@ -137,9 +137,19 @@ public class PessoaBean implements Serializable{
 		try {
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 			
+			EstadoDAO estadoDAO =  new EstadoDAO();
+			estados =  estadoDAO.listar();
+			
+			estado = pessoa.getCidade().getEstado();
+			
 			//Instânciando o estado para mostrar o campo list do botão novo.
 			CidadeDAO cidadeDAO = new CidadeDAO();
-			cidades = cidadeDAO.listar();	
+			cidades = cidadeDAO.listar("nome");	
+			
+			/*
+			 * CidadeDAO cidadeDAO = new CidadeDAO();
+			 * cidades = cidadeDAO.buscaPorEstado(estado.getCodigo());
+			 * */
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao selecionar o registro, erro: "+ erro);
 			erro.printStackTrace();

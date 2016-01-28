@@ -40,10 +40,11 @@
 					<h:outputText value="#{cursorUsuario.tipoFormatado}" />
 				</p:column>
 
+				<!--  
 				<p:column headerText="Ativo" sortBy="#{cursorUsuario.ativoFormatado}">
 					<h:outputText value="#{cursorCliente.ativoFormatado}" />
 				</p:column>
-
+				-->
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{usuarioBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">

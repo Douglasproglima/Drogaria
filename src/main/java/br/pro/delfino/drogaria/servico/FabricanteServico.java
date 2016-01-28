@@ -89,5 +89,4 @@ public class FabricanteServico {
 		String jsonSaida = gson.toJson(fabricante);
 		return jsonSaida;
 	}	
-
 }

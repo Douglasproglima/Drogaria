@@ -12,7 +12,6 @@ import org.omnifaces.util.Messages;
 
 import br.pro.delfino.drogaria.dao.PessoaDAO;
 import br.pro.delfino.drogaria.dao.UsuarioDAO;
-import br.pro.delfino.drogaria.domain.Cliente;
 import br.pro.delfino.drogaria.domain.Pessoa;
 import br.pro.delfino.drogaria.domain.Usuario;
 
