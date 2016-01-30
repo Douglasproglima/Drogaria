@@ -10,9 +10,9 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
-	<h:form >
+	<h:form id="formulario">
 		<p:panel header="Produtos">		
-			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+			<p:dataTable id="tabelaProduto" emptyMessage="Nenhum registro encontrado." 
 						 paginator="true" 
 						 value="#{vendaBean.produtos}"
 						 var="cursorProduto" 
@@ -37,12 +37,46 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus" />
+					<p:commandButton icon="ui-icon-plus" actionListener="#{vendaBean.adicionar}" 
+									 update=":formulario:tabelaItemVenda">
+						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Cesta de Compras">		
+		<p:panel header="Carrinho de Compras">		
+			<p:dataTable id="tabelaItemVenda" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{vendaBean.itensVenda}"
+						 var="cursorItemVenda" 
+						 rows="3">
+				
+				<p:column headerText="Descrição" >
+					<h:outputText value="#{cursorItemVenda.produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Valor Unitário">
+					<h:outputText value="#{cursorItemVenda.produto.valorVenda}">
+						<f:convertNumber currencyCode="BRL" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Qtde:" >
+					<h:outputText value="#{cursorItemVenda.qtde}" />
+				</p:column>
+
+				<p:column headerText="Valor Parcial">
+					<h:outputText value="#{cursorItemVenda.valorParcial}">
+						<f:convertNumber currencyCode="BRL" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus" >
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
 		</p:panel>
 		
 		<p:panel header="Total">		

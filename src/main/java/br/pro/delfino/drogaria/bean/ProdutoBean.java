@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
@@ -149,8 +151,7 @@ public class ProdutoBean implements Serializable{
 		}
 	}
 	
-	
-//	public void upload(FileUploadEvent evento) {
-//			System.out.println("Teste componente Upload");
-//	}
+	public void upload2(FileUploadEvent evento) {
+			System.out.println("Teste componente Upload");
+	}
 }
