@@ -73,7 +73,9 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-minus" >
+					<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.remover}"
+									 update=":formulario:tabelaItemVenda">
+						<f:attribute name="itemVendaSelecionado" value="#{cursorItemVenda}"/>
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
