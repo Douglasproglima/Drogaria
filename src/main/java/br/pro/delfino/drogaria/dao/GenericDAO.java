@@ -150,5 +150,27 @@ public class GenericDAO<Entidade> {
 		}finally {
 			sessao.close();
 		}
+	}
+	
+	//Método criado na aula 229 - Upload de imagem parte 3
+	@SuppressWarnings("unchecked")
+	public Entidade mergeUpload(Entidade entidade){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
+		
+		try {
+			transacao = sessao.beginTransaction();
+			Entidade retorno = (Entidade) sessao.merge(entidade);
+			transacao.commit();
+			return retorno;
+		} catch (RuntimeException erro) {
+			if (transacao != null) {
+				transacao.rollback();
+			}
+			throw erro;
+		}finally {
+			sessao.close();
+		}
 	}	
+	
 }

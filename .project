@@ -36,7 +36,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.jboss.tools.cdi.core.cdibuilder</name>
+			<name>org.jboss.tools.ws.jaxrs.metamodelBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -61,7 +61,7 @@
 		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
 		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
 		<nature>org.jboss.tools.jst.web.kb.kbnature</nature>
-		<nature>org.jboss.tools.cdi.core.cdinature</nature>
 		<nature>org.jboss.tools.jsf.jsfnature</nature>
+		<nature>org.jboss.tools.ws.jaxrs.nature</nature>
 	</natures>
 </projectDescription>

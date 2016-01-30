@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">	
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Produtos</title>
@@ -75,8 +76,8 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
+	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false" >
+		<h:form id="formCadastro"  enctype="multipart/form-data">
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idDescricao" value="Descrição: "/>
 				<p:inputText id="idDescricao" value="#{produtoBean.produto.descricao}" maxlength="50" size="30" 
@@ -118,6 +119,11 @@
 					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricanteListagem" 
 								  itemValue="#{fabricanteListagem}" itemLabel="#{fabricanteListagem.descricao}"/>
 				</p:selectOneMenu>
+				
+				<p:outputLabel for="idfoto" value="Foto:" />
+				<p:fileUpload id="idfoto" mode="advanced" fileUploadListener="#{produtoBean.upload}" 
+							  auto="true" update=":mensagem"/>
+			
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">

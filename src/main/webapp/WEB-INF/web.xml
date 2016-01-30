@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
+<web-app id="WebApp_ID" version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
 	<!-- Nome da Aplicação -->
 	<display-name>Drogaria</display-name>
@@ -13,21 +12,43 @@
 		<param-value>Development</param-value>
 	</context-param>
 
-	<!-- Tema do PrimeFaces -->
-	<!-- 
-	afterdark
-	bootstrap
-	delta
-	home
-	smoothness
-	overcast
-	**afterwork 
-	 -->
+	<!-- Tema do PrimeFaces afterdark bootstrap delta home smoothness overcast 
+		**afterwork -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>afterwork</param-value>
 	</context-param>
-	
+
+	<!-- Upload de imagem Flávio -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>PrimeFaces FileUpload Filter</filter-name> -->
+<!-- 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class> -->
+<!-- 	</filter> -->
+
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>PrimeFaces FileUpload Filter</filter-name> -->
+<!-- 		<servlet-name>Faces Servlet</servlet-name> -->
+<!-- 		<url-pattern>*.jsf</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>PrimeFaces FileUpload Filter</filter-name> -->
+	<!-- <url-pattern>/*</url-pattern> -->
+	<!-- <dispatcher>REQUEST</dispatcher> -->
+	<!-- <dispatcher>FORWARD</dispatcher> -->
+	<!-- </filter-mapping> -->
+
+	<!-- Carregamento do Hibernate junto ao tomcat -->
+	<listener>
+		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
+	</listener>
+
+	<!-- Definição do Mecanismo de Upload native, auto, commons -->
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>native</param-value>
+	</context-param>
+
 	<!-- Configuração do JSF -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -38,9 +59,4 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-
-	<!-- Carregamento do Hibernate junto ao tomcat -->
-	<listener>
-		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
-	</listener>
 </web-app>

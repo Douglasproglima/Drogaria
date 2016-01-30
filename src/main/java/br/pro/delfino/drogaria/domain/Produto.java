@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -29,6 +30,10 @@ public class Produto extends GenericDomain {
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal valorCompra;
 
+	//@Transient atributo temporário que não irá gerar tabela no banco de dados
+	@Transient
+	private String caminho;
+	
 	public Fabricante getFabricante() {
 		return fabricante;
 	}
@@ -67,5 +72,13 @@ public class Produto extends GenericDomain {
 
 	public void setValorCompra(BigDecimal valorCompra) {
 		this.valorCompra = valorCompra;
+	}
+	
+	public String getCaminho() {
+		return caminho;
+	}
+	
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
 	}
 }

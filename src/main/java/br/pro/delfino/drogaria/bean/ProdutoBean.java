@@ -1,6 +1,11 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +14,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
@@ -68,7 +75,14 @@ public class ProdutoBean implements Serializable{
 	public void salvar(){
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
+			
 			produtoDAO.merge(produto);
+			
+			//Trecho gerado na aula 229 upload de imagem para cópiar a imagem para um diretório padrão
+//			Produto produtoRetorno = produtoDAO.mergeUpload(produto);
+//			Path origem = Paths.get(produto.getCaminho()); //Origem do caminho
+//			Path destino = Paths.get("C:/Users/Java/workspaceJava/uploadImagens/"+produtoRetorno.getCodigo()+".png"); //Destino
+//			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			
 			produto = new Produto();
 			produtos = produtoDAO.listar();
@@ -77,6 +91,7 @@ public class ProdutoBean implements Serializable{
 			fabricantes = fabricanteDAO.listar();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");
+		//} catch (RuntimeException | IOException erro) {
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
 			erro.printStackTrace();
@@ -112,5 +127,30 @@ public class ProdutoBean implements Serializable{
 			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}		
-	}	
+	}
+	
+	public void upload(FileUploadEvent evento){
+		try {
+			UploadedFile arquivoUpload =  evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			
+			//Faz a cópia do arquivo upado para a pasta temporária do sistema operacional
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			
+			produto.setCaminho(arquivoTemp.toString());
+		
+			Messages.addGlobalInfo("Caminho: "+produto.getCaminho());
+			System.out.println("Caminho: "+produto.getCaminho());
+			
+			Messages.addGlobalInfo("Upload realizado com sucesso");
+		} catch (IOException erro) {
+			Messages.addGlobalError("Erro ao realizar upload do arquivo, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
+	
+	
+//	public void upload(FileUploadEvent evento) {
+//			System.out.println("Teste componente Upload");
+//	}
 }
