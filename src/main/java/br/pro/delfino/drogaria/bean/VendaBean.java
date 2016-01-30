@@ -1,6 +1,7 @@
 package br.pro.delfino.drogaria.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +56,31 @@ public class VendaBean implements Serializable{
 	public void adicionar(ActionEvent evento){
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");		
 		
-		ItemVenda itemVenda = new ItemVenda();
-		itemVenda.setValorParcial(produto.getValorVenda());
-		itemVenda.setProduto(produto);
-		itemVenda.setQtde(new Short("1"));
+		//status = -1 Não Existe o produto
+		//status = +1 Existe o produto
+		int status = -1;
 		
-		itensVenda.add(itemVenda);
+		//For para percorrer o ArraList itensVenda
+		for(int posicao = 0; posicao < itensVenda.size(); posicao++){
+			//Pega o item na linha corrente, em seguida pega o produto do item da 
+			//linha corrente onde o mesmo seja igual ao produto procurado, se atender fica +1
+			if(itensVenda.get(posicao).getProduto().equals(produto)){
+				status = posicao;
+			}
+		}
+		
+		if (status < 0) {
+			ItemVenda itemVenda = new ItemVenda();
+			itemVenda.setValorParcial(produto.getValorVenda());
+			itemVenda.setProduto(produto);
+			itemVenda.setQtde(new Short("1"));
+			
+			itensVenda.add(itemVenda);	
+		} else {
+			ItemVenda itemVenda = itensVenda.get(status);
+			itemVenda.setQtde(new Short(itemVenda.getQtde()+ 1 + ""));
+			itemVenda.setValorParcial(produto.getValorVenda().multiply( new BigDecimal(itemVenda.getQtde())));
+		}
 	}	
 	
 	public void novo(){
