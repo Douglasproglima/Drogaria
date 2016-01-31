@@ -15,11 +15,13 @@ import org.omnifaces.util.Messages;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
 import br.pro.delfino.drogaria.domain.ItemVenda;
 import br.pro.delfino.drogaria.domain.Produto;
+import br.pro.delfino.drogaria.domain.Venda;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class VendaBean implements Serializable {
+	private Venda venda;
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 
@@ -38,14 +40,26 @@ public class VendaBean implements Serializable {
 	public void setItensVenda(List<ItemVenda> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
+	
+	public Venda getVenda() {
+		return venda;
+	}
+	
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
 
 	@PostConstruct
-	public void listar() {
+	public void novo() {
 		try {
+			venda =  new Venda();
+			venda.setValorTotal(new BigDecimal("0.00"));
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar();
+			produtos = produtoDAO.listar("descricao");
 
 			itensVenda = new ArrayList<>();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os registros, erro: " + erro);
 			erro.printStackTrace();
@@ -82,6 +96,9 @@ public class VendaBean implements Serializable {
 			itemVenda.setQtde(new Short(itemVenda.getQtde() + 1 + ""));
 			itemVenda.setValorParcial(produto.getValorVenda().multiply(new BigDecimal(itemVenda.getQtde())));
 		}
+		
+		//Após adicionar os itens do carrinho atualiza o valor total através do método calcular()
+		calcular();
 	}
 
 	public void remover(ActionEvent evento) {
@@ -103,12 +120,24 @@ public class VendaBean implements Serializable {
 		if (status > -1) {
 			itensVenda.remove(status);
 		}
+		
+		//Após adicionar os itens do carrinho atualiza o valor total através do método calcular()
+		calcular();
 	}
 
-	public void novo() {
-
+	public void calcular(){
+		//Zera o totalizar
+		venda.setValorTotal(new BigDecimal("0.00"));
+		
+		//For do ArrayList itemVendas;
+		for(int posicao = 0; posicao < itensVenda.size(); posicao++){
+			//Captura o item da venda corrente, ou seja a cada repetição do carrinho de compra um item de cada vez
+			ItemVenda itemVenda =  itensVenda.get(posicao);
+			//Pega o valor total mais o valor parcial e seta no valor total;
+			venda.setValorTotal(venda.getValorTotal().add(itemVenda.getValorParcial()));
+		}
 	}
-
+	
 	public void salvar() {
 
 	}

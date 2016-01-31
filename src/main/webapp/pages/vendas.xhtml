@@ -38,7 +38,7 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-plus" actionListener="#{vendaBean.adicionar}" 
-									 update=":formulario:tabelaItemVenda">
+									 update=":formulario:tabelaItemVenda :formulario:painelTotalGeral">
 						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
 					</p:commandButton>
 				</p:column>
@@ -74,14 +74,21 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.remover}"
-									 update=":formulario:tabelaItemVenda">
+									 update=":formulario:tabelaItemVenda :formulario:painelTotalGeral">
 						<f:attribute name="itemVendaSelecionado" value="#{cursorItemVenda}"/>
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 		
-		<p:panel header="Total">		
+		<p:panel header="Total Geral">
+			<h:panelGrid id="painelTotalGeral" columns="3">
+				<p:outputLabel value="Total: R$ " />
+				<h:outputText value="#{vendaBean.venda.valorTotal}">
+					<f:convertNumber currencyCode="BRL" type="currency" />
+				</h:outputText>
+				<p:commandButton value="Finalizar" />	
+			</h:panelGrid>		
 		</p:panel>		
 	</h:form>
 
