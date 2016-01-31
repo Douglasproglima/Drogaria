@@ -38,7 +38,7 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-plus" actionListener="#{vendaBean.adicionar}" 
-									 update=":formulario:tabelaItemVenda :formulario:painelTotalGeral">
+									 update=":formulario:tabelaItemVenda :formulario:painelFinalizacao">
 						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
 					</p:commandButton>
 				</p:column>
@@ -74,23 +74,47 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.remover}"
-									 update=":formulario:tabelaItemVenda :formulario:painelTotalGeral">
+									 update=":formulario:tabelaItemVenda :formulario:painelFinalizacao">
 						<f:attribute name="itemVendaSelecionado" value="#{cursorItemVenda}"/>
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 		
-		<p:panel header="Total Geral">
-			<h:panelGrid id="painelTotalGeral" columns="3">
+		<p:panel header="Finalização">
+			<h:panelGrid id="painelFinalizacao" columns="3">
 				<p:outputLabel value="Total: R$ " />
 				<h:outputText value="#{vendaBean.venda.valorTotal}">
 					<f:convertNumber currencyCode="BRL" type="currency" />
 				</h:outputText>
-				<p:commandButton value="Finalizar" />	
+				<p:commandButton value="Finalizar" actionListener="#{vendaBean.finalizar}" 
+								 update=":mensagem :formularioFinalizarVenda:painelFinalizarVenda"
+								 oncomplete="PF('dialogo').show();"/>	
 			</h:panelGrid>		
 		</p:panel>		
 	</h:form>
+
+	<p:dialog header="Finalizar Venda" widgetVar="dialogo"
+			  draggable="false" resizable="false" modal="true" closable="false">
+		<h:form id="formularioFinalizarVenda">
+			<h:panelGrid id="painelFinalizarVenda" columns="2">
+				<p:outputLabel value="Funcionário:" />
+				<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
+								 converter="omnifaces.SelectItemsConverter" filter="true">
+					<f:selectItem noSelectionOption="true"
+								  itemLabel="Selecione um funcionário" />
+					<f:selectItems value="#{vendaBean.funcionarios}" var="cursorFuncionario"
+								   itemValue="#{cursorFuncionario}" itemLabel="#{cursorFuncionario.pessoa.nome}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
 
 </h:body>
 </html>

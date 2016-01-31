@@ -12,7 +12,10 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.pro.delfino.drogaria.dao.FuncionarioDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
+import br.pro.delfino.drogaria.domain.Cliente;
+import br.pro.delfino.drogaria.domain.Funcionario;
 import br.pro.delfino.drogaria.domain.ItemVenda;
 import br.pro.delfino.drogaria.domain.Produto;
 import br.pro.delfino.drogaria.domain.Venda;
@@ -24,6 +27,8 @@ public class VendaBean implements Serializable {
 	private Venda venda;
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
+	private List<Cliente> clientes;
+	private List<Funcionario> funcionarios;
 
 	public List<Produto> getProdutos() {
 		return produtos;
@@ -47,6 +52,22 @@ public class VendaBean implements Serializable {
 	
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+	
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+	
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+	
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+	
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
 	@PostConstruct
@@ -135,6 +156,16 @@ public class VendaBean implements Serializable {
 			ItemVenda itemVenda =  itensVenda.get(posicao);
 			//Pega o valor total mais o valor parcial e seta no valor total;
 			venda.setValorTotal(venda.getValorTotal().add(itemVenda.getValorParcial()));
+		}
+	}
+	
+	public void finalizar(){
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao finalizar a venda, erro: " + erro);
+			erro.printStackTrace();
 		}
 	}
 	
