@@ -167,6 +167,9 @@ public class VendaBean implements Serializable {
 			//Horário da venda - datetime servidor
 			venda.setHorario(new Date());
 			
+			//Após concluir a venda limpa os campos do botão finalizar
+			venda.setCliente(null);
+			venda.setFuncionario(null);
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
@@ -184,10 +187,20 @@ public class VendaBean implements Serializable {
 			//signum() Retorna a parte inteira ex: venda.getValorTotal().signum() == 0
 			if (venda.getValorTotal().signum() == 0) {
 				Messages.addGlobalInfo("Inform pelo ao menos um produto para concluir a venda.");
+				return;
 			}
 			
 			VendaDAO vendaDAO = new VendaDAO();
 			vendaDAO.salvar(venda, itensVenda);
+			
+			//Após inserir limpa a lista
+			venda =  new Venda();
+			venda.setValorTotal(new BigDecimal("0.00"));
+			
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar("descricao");
+
+			itensVenda = new ArrayList<>();
 			
 			Messages.addGlobalInfo("Venda realizada com sucesso!");
 		} catch (RuntimeException erro) {
