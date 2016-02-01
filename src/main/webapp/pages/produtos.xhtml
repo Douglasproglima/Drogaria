@@ -28,7 +28,8 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Descrição" filterBy="#{cursorProduto.descricao}" sortBy="#{cursorProduto.descricao}">
+				<p:column headerText="Descrição" filterBy="#{cursorProduto.descricao}" filterMatchMode="contains"
+						  sortBy="#{cursorProduto.descricao}">
 					<h:outputText value="#{cursorProduto.descricao}" />
 				</p:column>
 				
@@ -48,7 +49,8 @@
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Fabricante" filterBy="#{cursorProduto.fabricante.descricao}" sortBy="#{cursorProduto.fabricante.descricao}">
+				<p:column headerText="Fabricante" filterBy="#{cursorProduto.fabricante.descricao}" filterMatchMode="contains"
+						  sortBy="#{cursorProduto.fabricante.descricao}">
 					<h:outputText value="#{cursorProduto.fabricante.descricao}" />
 				</p:column>
 

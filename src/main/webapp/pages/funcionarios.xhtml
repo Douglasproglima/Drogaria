@@ -6,56 +6,107 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cidades</title>
+	<title>Funcionários</title>
+	<h:outputScript library="js" name="script.js" />
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
 		<p:panel header="Funcionários - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+						 paginator="true" 
+						 value="#{funcionarioBean.funcionarios}"
+						 var="cursorFuncionario" 
+						 rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo"  
+									 actionListener="#{funcionarioBean.novo}" type="org.omnifaces" 
+									 oncomplete="PF('dialogo').show();"
+									 update=":mensagem :formCadastro:painelCadastro">
+					
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Funcionário">
+				<p:column headerText="Funcionário" filterBy="#{cursorFuncionario.pessoa.nome}" filterMatchMode="contains"
+						  sortBy="#{cursorFuncionario.pessoa.nome}">
+					<h:outputText value="#{cursorFuncionario.pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF">
+					<p:inputMask value="#{cursorFuncionario.pessoa.cpf}" mask="99.999.999-99" disabled="true" />
 				</p:column>
 
 				<p:column headerText="CarteiraTrabalho">
+					<h:outputText value="#{cursorFuncionario.carteiraTrabalho}" />
 				</p:column>
 				
 				<p:column headerText="DataAdmissão">
+					<h:outputText value="#{cursorFuncionario.dataAdmissao}" >
+						<f:convertDateTime locale="pt_br"/>
+					</h:outputText>
 				</p:column>
-
+				
 				<p:column headerText="Ativo">
+					<p:selectBooleanCheckbox value="#{cursorFuncionario.ativo}" disabled="true" />
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{funcionarioBean.editar}" 
+									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+						
+						<f:attribute name="funcionarioSelecionado" value="#{cursorFuncionario}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+				
+					<p:commandButton icon="ui-icon-trash" actionListener="#{funcionarioBean.excluir}" 
+									 update=":mensagem :formListagem:tabelaListagem" >
+						
+						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
+						<f:attribute name="funcionarioSelecionado" value="#{cursorFuncionario}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+			</p:confirmDialog>			
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Funcionários - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Funcionário: "></p:outputLabel>
-				<p:selectOneMenu filter="true" >
-					<f:selectItem itemValue="" itemLabel="Selecione um funcionário"  />
+		<h:form id="formCadastro">
+			<h:panelGrid id="painelCadastro" columns="2">
+				<p:outputLabel for="idFuncionario" value="Funcionário: "/>
+				<p:selectOneMenu id="idFuncionario" filter ="true" value="#{funcionarioBean.funcionario.pessoa}" 
+								 converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Funcionário é obrigatório.">
+					
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um funcionário" />
+					<f:selectItems value="#{funcionarioBean.pessoas}" var="funcionarioListagem" 
+								  itemValue="#{funcionarioListagem}" itemLabel="#{funcionarioListagem.nome} (#{funcionarioListagem.cpf})"/>
+								  
 				</p:selectOneMenu>
 				
-				<p:outputLabel value="Data Admissão: "></p:outputLabel>
-				<p:calendar pattern="dd/MM/yyyy" mask="true" />
+				<p:outputLabel for="idCarteiraTrab" value="Carteira de Trabalho: "/>
+				<p:inputText id="idCarteiraTrab" value="#{funcionarioBean.funcionario.carteiraTrabalho}"/>
 				
-				<p:outputLabel value="Carteira Trabalho: "></p:outputLabel>
-				<p:inputText maxlength="15" size="30" />
-
-				<p:outputLabel value="Ativo: "></p:outputLabel>
-				<p:selectBooleanCheckbox  />
+				<p:outputLabel for="idDtCadastro" value="Data de Cadastro: "/>
+				<p:calendar id="idDtCadastro" value="#{funcionarioBean.funcionario.dataAdmissao}" 
+							required="true" requiredMessage="O campo Data de Admissão é obrigatório."
+							locale="pt_BR" pattern="dd/MM/yyyy"
+							/>
+				
+				<p:outputLabel for="idAtivo" value="Ativo:" />
+				<p:selectBooleanCheckbox id="idAtivo" value="#{funcionarioBean.funcionario.ativo}"/>
 				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" 
+							     actionListener="#{funcionarioBean.salvar}"
+							     update=":mensagem :formCadastro:painelCadastro :formListagem:tabelaListagem"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

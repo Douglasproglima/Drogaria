@@ -28,7 +28,8 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Cliente" filterBy="#{cursorCliente.pessoa.nome}" sortBy="#{cursorCliente.pessoa.nome}">
+				<p:column headerText="Cliente" filterBy="#{cursorCliente.pessoa.nome}" filterMatchMode="contains"
+						  sortBy="#{cursorCliente.pessoa.nome}">
 					<h:outputText value="#{cursorCliente.pessoa.nome}" />
 				</p:column>
 

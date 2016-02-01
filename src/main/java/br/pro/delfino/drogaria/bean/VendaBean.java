@@ -3,6 +3,7 @@ package br.pro.delfino.drogaria.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -162,6 +163,10 @@ public class VendaBean implements Serializable {
 	
 	public void finalizar(){
 		try {
+			//Horário da venda - datetime servidor
+			venda.setHorario(new Date());
+			
+			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado();
 			

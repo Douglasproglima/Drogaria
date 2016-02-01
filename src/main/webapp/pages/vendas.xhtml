@@ -119,6 +119,15 @@
 								   itemLabel="#{cursorCliente.pessoa.cpf} - #{cursorCliente.pessoa.nome}" />
 				</p:selectOneMenu>
 
+				<p:outputLabel for="idTime" value="Horário: " />
+				<p:calendar id="idTime" value="#{vendaBean.venda.horario}" 
+							pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo"
+							timeOnly="true" disabled="true" />
+				
+				<p:outputLabel for="idTotal" value="Total: R$ " />
+				<p:inputText id="idTotal" value="#{vendaBean.venda.valorTotal}" maxlength="7" size="10" disabled="true">
+					<f:convertNumber minFractionDigits="2" />
+				</p:inputText>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">

@@ -27,11 +27,13 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Cidade" filterBy="#{cursorCidade.nome}" sortBy="#{cursorCidade.nome}">
+				<p:column headerText="Cidade" filterBy="#{cursorCidade.nome}" filterMatchMode="contains"
+						  sortBy="#{cursorCidade.nome}">
 					<h:outputText value="#{cursorCidade.nome}" />
 				</p:column>
 
-				<p:column headerText="Estado" filterBy="#{cursorCidade.estado.nome}" sortBy="#{cursorCidade.estado.nome}">
+				<p:column headerText="Estado" filterBy="#{cursorCidade.estado.nome}" filterMatchMode="contains"
+						  sortBy="#{cursorCidade.estado.nome}">
 					<h:outputText value="#{cursorCidade.estado.nome}" />
 					<h:outputText value=" - " />
 					<h:outputText value="#{cursorCidade.estado.sigla}" />
