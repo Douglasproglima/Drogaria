@@ -16,6 +16,7 @@ import org.omnifaces.util.Messages;
 import br.pro.delfino.drogaria.dao.ClienteDAO;
 import br.pro.delfino.drogaria.dao.FuncionarioDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
+import br.pro.delfino.drogaria.dao.VendaDAO;
 import br.pro.delfino.drogaria.domain.Cliente;
 import br.pro.delfino.drogaria.domain.Funcionario;
 import br.pro.delfino.drogaria.domain.ItemVenda;
@@ -179,14 +180,19 @@ public class VendaBean implements Serializable {
 	}
 	
 	public void salvar() {
-
-	}
-
-	public void excluir(ActionEvent evento) {
-
-	}
-
-	public void editar(ActionEvent evento) {
-
+		try {
+			//signum() Retorna a parte inteira ex: venda.getValorTotal().signum() == 0
+			if (venda.getValorTotal().signum() == 0) {
+				Messages.addGlobalInfo("Inform pelo ao menos um produto para concluir a venda.");
+			}
+			
+			VendaDAO vendaDAO = new VendaDAO();
+			vendaDAO.salvar(venda, itensVenda);
+			
+			Messages.addGlobalInfo("Venda realizada com sucesso!");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar a venda, erro: " + erro);
+			erro.printStackTrace();
+		}
 	}
 }

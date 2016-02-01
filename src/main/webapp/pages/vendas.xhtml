@@ -16,7 +16,8 @@
 						 paginator="true" 
 						 value="#{vendaBean.produtos}"
 						 var="cursorProduto" 
-						 rows="3">
+						 rows="3"
+						 paginatorPosition="bottom">
 				
 				<p:column headerText="Descrição" filterBy="#{cursorProduto.descricao}" sortBy="#{cursorProduto.descricao}">
 					<h:outputText value="#{cursorProduto.descricao}" />
@@ -90,7 +91,10 @@
 				</h:outputText>
 				<p:commandButton value="Finalizar" actionListener="#{vendaBean.finalizar}" 
 								 update=":mensagem :formularioFinalizarVenda:painelFinalizarVenda"
-								 oncomplete="PF('dialogo').show();"/>	
+								 oncomplete="PF('dialogo').show();" >
+				
+					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+				</p:commandButton>	
 			</h:panelGrid>		
 		</p:panel>		
 	</h:form>
@@ -99,9 +103,10 @@
 			  draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formularioFinalizarVenda">
 			<h:panelGrid id="painelFinalizarVenda" columns="2">
-				<p:outputLabel value="Funcionário:" />
-				<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
-								 converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
+				<p:outputLabel for="idFuncionario" value="Funcionário:" />
+				<p:selectOneMenu id="idFuncionario" value="#{vendaBean.venda.funcionario}"
+								 converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains"
+								 required="true" requiredMessage="O campo Funcionário é obrigatório.">
 					<f:selectItem noSelectionOption="true"
 								  itemLabel="Selecione um funcionário" />
 					<f:selectItems value="#{vendaBean.funcionarios}" var="cursorFuncionario"
@@ -122,7 +127,7 @@
 				<p:outputLabel for="idTime" value="Horário: " />
 				<p:calendar id="idTime" value="#{vendaBean.venda.horario}" 
 							pattern="HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo"
-							timeOnly="true" disabled="true" />
+							timeOnly="true" disabled="true"/>
 				
 				<p:outputLabel for="idTotal" value="Total: R$ " />
 				<p:inputText id="idTotal" value="#{vendaBean.venda.valorTotal}" maxlength="7" size="10" disabled="true">
@@ -131,7 +136,8 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" actionListener="#{vendaBean.salvar}" 
+								 update=":mensagem" oncomplete="PF('dialogo').hide();"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

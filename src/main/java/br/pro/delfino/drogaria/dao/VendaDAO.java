@@ -1,7 +1,49 @@
 package br.pro.delfino.drogaria.dao;
 
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import br.pro.delfino.drogaria.domain.ItemVenda;
 import br.pro.delfino.drogaria.domain.Venda;
+import br.pro.delfino.drogaria.util.HibernateUtil;
 
 public class VendaDAO extends GenericDAO<Venda>{
-
+	//Salva a venda e depois salva os itens da venda
+	public void salvar(Venda venda, List<ItemVenda> itensVendas){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
+		
+		try {
+			transacao = sessao.beginTransaction();
+			
+			//Salvar a venda
+			sessao.save(venda);
+			
+			//Itens da venda, pois após o save já se consegue obter a chave primária gerada pelo GenaricDomain
+			for (int posicao = 0; posicao < itensVendas.size(); posicao++) {
+				//Pega o item da linha corrente, onde neste momento se tem o 
+				//produto, valor parcial e qtde, faltando o código
+				ItemVenda itemVenda = itensVendas.get(posicao);
+				
+				//Salva a venda na tabela de itens vendas
+				itemVenda.setVenda(venda);
+				
+				//Salva o item da venda
+				sessao.save(itemVenda);
+				
+				//Se der erro na venda ou no item da venda, cancela toda a transação realizada
+			}
+			
+			transacao.commit();
+		} catch (RuntimeException erro) {
+			if (transacao != null) {
+				transacao.rollback();
+			}
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+	}
 }
