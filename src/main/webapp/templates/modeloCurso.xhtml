@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SGD - Sistema de Gerenciamento de Drogarias</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<!--Estrutura do template padrão 
+		1 - Área para logo
+		2 - Abaixo do logo o menu horizontal
+		3 - Conteúdo
+		4 - Rodapé
+		class é padrão das tags HTML
+		styleClass é das tags do JSF e do PrimeFaces, amabas fazem a mesma coisa
+	 -->
+
+		<!-- Div geral para definir altura/largura da aplicação -->
+		<div id="divGeral">
+
+			<!-- Topo -> LogoTipo -->
+			<div id="idTopo" class="divTopo">
+				<p:graphicImage library="imagens" name="06.png"
+					styleClass="imagemCentralizada" />
+			</div>
+
+			<!-- Cabeçalho - Todas as páginas irão ter o mesmo menu-->
+			<div id="idCabecalho">
+				<p:menubar>
+					<p:submenu label="Arquivos">
+						<p:menuitem value="Cadastro de Usuário" />
+						<p:menuitem value="Sair" />
+					</p:submenu>
+	
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Estado" />
+						<p:menuitem value="Cidade" />
+						<p:menuitem value="Fabricante" />
+						<p:menuitem value="Pessoa" />
+						<p:menuitem value="Cliente" />
+						<p:menuitem value="Funcionário" />
+						<p:menuitem value="Produto" />
+					</p:submenu>
+	
+					<p:submenu label="Procedimentos">
+						<p:menuitem value="Venda" />
+					</p:submenu>
+	
+					<p:submenu label="Relatórios">
+						<p:menuitem value="Produto" />
+					</p:submenu>
+	
+					<p:submenu label="Ajuda">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</div>
+
+			<!-- Conteúdo -->
+			<div id="idConteudo"></div>
+
+			<!-- Rodapé -->
+			<div id="idRodape"></div>
+		</div>
+	</h:form>
+</h:body>
+</html>
