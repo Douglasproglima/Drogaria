@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+	
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SGD - Sistema de Gerenciamento de Drogarias</title>
@@ -23,10 +25,11 @@
 		<!-- Div geral para definir altura/largura da aplicação -->
 		<div id="divGeral">
 
-			<!-- Topo -> LogoTipo -->
+			<!-- Topo -> LogoTipo \ -->
 			<div id="idTopo" class="divTopo">
-				<p:graphicImage library="imagens" name="06.png"
-					styleClass="imagemCentralizada" />
+				<p:graphicImage library="imagens" name="cabecalho/06.png"
+							 	styleClass="imagemCentralizada" 
+							 	style="text-align:center; display:block;" />
 			</div>
 
 			<!-- Cabeçalho - Todas as páginas irão ter o mesmo menu-->
@@ -62,10 +65,16 @@
 			</div>
 
 			<!-- Conteúdo -->
-			<div id="idConteudo"></div>
+			<div id="idConteudo">
+				<ui:insert name="uiConteudo" />
+			</div>
 
 			<!-- Rodapé -->
-			<div id="idRodape"></div>
+			<div id="idRodape" class="divRodape">
+				<p:graphicImage library="imagens" name="rodape/rodape.jpg"
+								style="text-align:center; display:block;"
+								styleClass="imagemRodape"/>
+			</div>
 		</div>
 	</h:form>
 </h:body>

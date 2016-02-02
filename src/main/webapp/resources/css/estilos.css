@@ -4,8 +4,35 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-}
+	margin-top: -120px;
+	
+	/*Essa duas propriedades são responsáveis por ajustar a imagem a tela*/
+	max-width:100%;
+	comentheight:auto;
+	}
 
 .divTopo{
 	padding-bottom: 10px;
 }
+
+.imagemRodape{
+	position: fixed;
+	bottom: 0;
+	
+	max-width:100%;
+	comentheight:auto;
+	overflow:auto;
+	
+	top: 100%;
+	height: 15%; 
+	width: 99%;
+	float: left;
+	float: right;
+	
+	margin-top: -120px;
+}
+
+/*
+.divRodape{
+	padding-top: 15%;
+}*/
