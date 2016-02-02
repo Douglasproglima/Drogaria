@@ -19,6 +19,11 @@
 	padding-bottom: 10px;
 }
 
+/*Altera o tamanho das fontes dos componentes do primefaces*/
+.ui-widget, .ui-widget .ui-widget {
+font-size: 100% !important;
+}
+
 .imagemRodape{
 	position: fixed;
 	bottom: 0;
