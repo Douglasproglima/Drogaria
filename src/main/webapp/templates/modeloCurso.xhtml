@@ -12,7 +12,8 @@
 	<h:outputStylesheet library="css" name="estilos.css" />
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="mensagem" />
+	
 		<!--Estrutura do template padrão 
 		1 - Área para logo
 		2 - Abaixo do logo o menu horizontal
@@ -20,7 +21,7 @@
 		4 - Rodapé
 		class é padrão das tags HTML
 		styleClass é das tags do JSF e do PrimeFaces, amabas fazem a mesma coisa
-	 -->
+	 	-->
 
 		<!-- Div geral para definir altura/largura da aplicação -->
 		<div id="divGeral">
@@ -33,35 +34,37 @@
 			</div>
 
 			<!-- Cabeçalho - Todas as páginas irão ter o mesmo menu-->
-			<div id="idCabecalho">
-				<p:menubar>
-					<p:submenu label="Arquivos">
-						<p:menuitem value="Cadastro de Usuário" />
-						<p:menuitem value="Sair" />
-					</p:submenu>
-	
-					<p:submenu label="Cadastros">
-						<p:menuitem value="Estado" />
-						<p:menuitem value="Cidade" />
-						<p:menuitem value="Fabricante" />
-						<p:menuitem value="Pessoa" />
-						<p:menuitem value="Cliente" />
-						<p:menuitem value="Funcionário" />
-						<p:menuitem value="Produto" />
-					</p:submenu>
-	
-					<p:submenu label="Procedimentos">
-						<p:menuitem value="Venda" />
-					</p:submenu>
-	
-					<p:submenu label="Relatórios">
-						<p:menuitem value="Produto" />
-					</p:submenu>
-	
-					<p:submenu label="Ajuda">
-						<p:menuitem value="Sobre" />
-					</p:submenu>
-				</p:menubar>
+			<div id="idCabecalho" class="divCabecalho">
+				<h:form id="formMenu">
+					<p:menubar>
+						<p:submenu label="Arquivos">
+							<p:menuitem value="Cadastro de Usuário" />
+							<p:menuitem value="Sair" />
+						</p:submenu>
+		
+						<p:submenu label="Cadastros">
+							<p:menuitem value="Estado" />
+							<p:menuitem value="Cidade" />
+							<p:menuitem value="Fabricante" />
+							<p:menuitem value="Pessoa" />
+							<p:menuitem value="Cliente" />
+							<p:menuitem value="Funcionário" />
+							<p:menuitem value="Produto" />
+						</p:submenu>
+		
+						<p:submenu label="Procedimentos">
+							<p:menuitem value="Venda" />
+						</p:submenu>
+		
+						<p:submenu label="Relatórios">
+							<p:menuitem value="Produto" />
+						</p:submenu>
+		
+						<p:submenu label="Ajuda">
+							<p:menuitem value="Sobre" />
+						</p:submenu>
+					</p:menubar>
+				</h:form>
 			</div>
 
 			<!-- Conteúdo -->
@@ -70,12 +73,12 @@
 			</div>
 
 			<!-- Rodapé -->
-			<div id="idRodape" class="divRodape">
-				<p:graphicImage library="imagens" name="rodape/rodape.jpg"
-								style="text-align:center; display:block;"
-								styleClass="imagemRodape"/>
-			</div>
+<!-- 			<div id="idRodape" class="divRodape"> -->
+<!-- 				<p:graphicImage library="imagens" name="rodape/rodape.jpg" -->
+<!-- 								style="text-align:center; display:block;" -->
+<!-- 								styleClass="imagemRodape"/> -->
+<!-- 			</div> -->
 		</div>
-	</h:form>
+	
 </h:body>
 </html>
