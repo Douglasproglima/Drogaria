@@ -68,10 +68,17 @@
 					<h:outputText value="#{cursorItemVenda.qtde}" />
 				</p:column>
 
-				<p:column headerText="Valor Parcial">
+				<p:column headerText="Valor Parcial" > 
 					<h:outputText value="#{cursorItemVenda.valorParcial}">
 						<f:convertNumber currencyCode="BRL" type="currency" />
 					</h:outputText>
+	
+					<f:facet name="footer">
+						<h:outputText value="Valor Total: " />
+						<h:outputText value="#{vendaBean.venda.valorTotal}" >
+							<f:convertNumber currencyCode="BRL" type="currency" />
+						</h:outputText>
+					</f:facet>	
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -85,10 +92,6 @@
 		
 		<p:panel header="Finalização">
 			<h:panelGrid id="painelFinalizacao" columns="3">
-				<p:outputLabel value="Total: R$ " />
-				<h:outputText value="#{vendaBean.venda.valorTotal}">
-					<f:convertNumber currencyCode="BRL" type="currency" />
-				</h:outputText>
 				<p:commandButton value="Finalizar" actionListener="#{vendaBean.finalizar}" 
 								 update=":mensagem :formularioFinalizarVenda:painelFinalizarVenda"
 								 oncomplete="PF('dialogo').show();" >
