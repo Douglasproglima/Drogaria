@@ -32,23 +32,24 @@
 					<h:outputText value="#{cursorPessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" style="width: 7%;">
 					<h:outputText value="#{cursorPessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="RG">
+				<p:column headerText="RG" style="width: 7%;">
 					<h:outputText value="#{cursorPessoa.rg}" />
 				</p:column>
 				
-				<p:column headerText="E-mail">
+				<p:column headerText="E-mail" style="width: 15%;">
 					<h:outputText value="#{cursorPessoa.email}" />
 				</p:column>
 				
-				<p:column headerText="Cidade" filterBy="#{cursorPessoa.cidade.nome}" sortBy="#{cursorPessoa.cidade.nome}">
+				<p:column headerText="Cidade" style="width: 15%;"
+						  filterBy="#{cursorPessoa.cidade.nome}" sortBy="#{cursorPessoa.cidade.nome}">
 					<h:outputText value="#{cursorPessoa.cidade.nome}" />
 				</p:column>
 																
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width: 6%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" 
 									 update=":formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						

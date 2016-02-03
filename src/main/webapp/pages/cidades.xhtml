@@ -39,7 +39,7 @@
 					<h:outputText value="#{cursorCidade.estado.sigla}" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width: 6%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						

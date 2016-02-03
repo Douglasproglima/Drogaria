@@ -34,21 +34,24 @@
 						<h:outputText value="#{cursorEstado.nome}" />
 					</p:column>
 	
-					<p:column headerText="Sigla" sortBy="#{cursorEstado.sigla}" filterBy="#{cursorEstado.sigla}" >
+					<p:column headerText="Sigla" sortBy="#{cursorEstado.sigla}" 
+							  filterBy="#{cursorEstado.sigla}" style="width: 8%;">
 						<h:outputText value="#{cursorEstado.sigla}" />
 					</p:column>
-	
-					<p:column headerText="Opções">
+
+					<p:column headerText="Opções" style="width: 6%;">
 						<p:commandButton icon="ui-icon-pencil" actionListener="#{estadoBean.editar}" 
-										 update=":formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
-							<f:attribute name="estadoSelecionado" value="#{cursorEstado}" />
+										 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
+							
+							<f:attribute name="estadoSelecionada" value="#{cursorEstado}" />
+							<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
 						</p:commandButton>
 					
 						<p:commandButton icon="ui-icon-trash" actionListener="#{estadoBean.excluir}" 
 										 update=":mensagem :formListagem:tabelaListagem" >
 							
 							<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
-							<f:attribute name="estadoSelecionado" value="#{cursorEstado}" />
+							<f:attribute name="estadoSelecionada" value="#{cursorEstado}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>

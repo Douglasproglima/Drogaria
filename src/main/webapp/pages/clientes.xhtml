@@ -31,22 +31,22 @@
 					<h:outputText value="#{cursorCliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" style="width: 12%;">
 					<p:inputMask value="#{cursorCliente.pessoa.cpf}" mask="99.999.999-99" disabled="true" />
 					
 				</p:column>
 
-				<p:column headerText="Data do Cadastro">
+				<p:column headerText="Data do Cadastro" style="width: 8%;">
 					<h:outputText value="#{cursorCliente.dataCadastro}" >
 						<f:convertDateTime locale="pt_br"/>
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Ativo">
+				<p:column headerText="Ativo" style="width: 4%;">
 					<p:selectBooleanCheckbox value="#{cursorCliente.ativo}" disabled="true" />
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width: 6%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{clienteBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						
