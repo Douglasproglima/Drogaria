@@ -77,7 +77,7 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false" >
+	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false" >
 		<h:form id="formCadastro"  enctype="multipart/form-data">
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idDescricao" value="Descrição: "/>
@@ -121,10 +121,14 @@
 								  itemValue="#{fabricanteListagem}" itemLabel="#{fabricanteListagem.descricao}"/>
 				</p:selectOneMenu>
 				
-				<p:outputLabel for="idfoto" value="Foto:" />
-				<p:fileUpload id="idfoto" mode="advanced" fileUploadListener="#{produtoBean.upload2}" 
-							  auto="true" update=":mensagem"/>
+				<p:outputLabel for="idUpload" value="Upload:" />
+				<p:fileUpload id="idUpload" mode="advanced" fileUploadListener="#{produtoBean.upload}" 
+							  auto="true" update=":mensagem :formCadastro:idFoto"/>
 			
+				<p:outputLabel for="idFoto" value="Foto:" />
+				<p:graphicImage id="idFoto" value="#{imagemBean.foto}"  width="200" height="200" >
+					<f:param name="caminho" value="#{produtoBean.produto.caminho}" />
+				</p:graphicImage>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">

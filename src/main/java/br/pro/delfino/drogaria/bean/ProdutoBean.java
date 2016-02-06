@@ -76,15 +76,21 @@ public class ProdutoBean implements Serializable{
 	
 	public void salvar(){
 		try {
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			
-			produtoDAO.merge(produto);
+			//Validação do campo foto, condição na mão que é a mesma realizada pelo primefaces através da opção required="true"
+			if (produto.getCaminho() ==  null) {
+				Messages.addGlobalError("O campo Foto é obrigatório.");
+				return;
+			}
 			
 			//Trecho gerado na aula 229 upload de imagem para cópiar a imagem para um diretório padrão
-//			Produto produtoRetorno = produtoDAO.mergeUpload(produto);
-//			Path origem = Paths.get(produto.getCaminho()); //Origem do caminho
-//			Path destino = Paths.get("C:/Users/Java/workspaceJava/uploadImagens/"+produtoRetorno.getCodigo()+".png"); //Destino
-//			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			Produto produtoRetorno = produtoDAO.mergeUpload(produto);
+			
+			Path origem = Paths.get(produto.getCaminho()); //Origem do caminho
+			
+			//O nome do arquivo após copiar para o diretório de destino será o código do produto com a extensão png
+			Path destino = Paths.get("D:/AmbienteDesenvolvimento/Java/Workspace/uploadImagens/"+produtoRetorno.getCodigo()+".png"); //Destino
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			
 			produto = new Produto();
 			produtos = produtoDAO.listar();
@@ -93,8 +99,7 @@ public class ProdutoBean implements Serializable{
 			fabricantes = fabricanteDAO.listar();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso.");
-		//} catch (RuntimeException | IOException erro) {
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}		
@@ -107,10 +112,14 @@ public class ProdutoBean implements Serializable{
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 			
+			//Aula 230 - Excluir imagem do caminho
+			Path arquivo =  Paths.get("D:/AmbienteDesenvolvimento/Java/Workspace/uploadImagens/", produto.getCodigo()+".png");
+			Files.deleteIfExists(arquivo);
+			
 			produtos = produtoDAO.listar();
 			
 			Messages.addGlobalInfo("Registro removido com sucesso.");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}		
@@ -119,39 +128,30 @@ public class ProdutoBean implements Serializable{
 	public void editar(ActionEvent evento){
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			produto.setCaminho("D:/AmbienteDesenvolvimento/Java/Workspace/uploadImagens/" + produto.getCodigo()+".png");
 			
 			//Instânciando o estado para mostrar o campo list do botão novo.
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 			
-			Messages.addGlobalInfo("Registro alterado com sucesso.");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
 			erro.printStackTrace();
 		}		
 	}
 	
-	public void upload(FileUploadEvent evento){
+	public void upload(FileUploadEvent evento) {
 		try {
 			UploadedFile arquivoUpload =  evento.getFile();
-			Path arquivoTemp = Files.createTempFile(null, null);
-			
-			//Faz a cópia do arquivo upado para a pasta temporária do sistema operacional
+			Path arquivoTemp =  Files.createTempFile(null, null);
+
 			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
-			
 			produto.setCaminho(arquivoTemp.toString());
-		
-			Messages.addGlobalInfo("Caminho: "+produto.getCaminho());
-			System.out.println("Caminho: "+produto.getCaminho());
 			
 			Messages.addGlobalInfo("Upload realizado com sucesso");
 		} catch (IOException erro) {
 			Messages.addGlobalError("Erro ao realizar upload do arquivo, erro: "+ erro);
 			erro.printStackTrace();
 		}
-	}
-	
-	public void upload2(FileUploadEvent evento) {
-			System.out.println("Teste componente Upload");
 	}
 }
