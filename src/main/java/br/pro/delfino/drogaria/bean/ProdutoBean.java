@@ -21,6 +21,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.hibernate.Hibernate;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -167,8 +168,35 @@ public class ProdutoBean implements Serializable{
 	
 	public void imprimir(){
 		try {
+			//Arvore de componente da aplicação
+			//Faces.getViewRoot().findComponent("idFormulario:idComponente");
+			DataTable tabela =  (DataTable) Faces.getViewRoot().findComponent("formListagem:tabelaListagem");
+			Map<String, Object> filtros = tabela.getFilters();
+			
+			//Parâmetros
+			String prodDescricao = (String) filtros.get("descricao");
+			String fabDescricao = (String) filtros.get("fabricante.descricao");
+			
 			String caminho = Faces.getRealPath("/relatorios/produtosListagem.jasper");
+			
+			Messages.addGlobalInfo("Caminho: " + caminho);
+			
 			Map<String, Object> parametro = new HashedMap(); //Nome e valor do parâmetro
+			
+			//Passagem de parâmetros para o relatório
+			//1 - Nome do parametro do relatório na query;
+			//2 - Nome do parametro da aplicação
+			if (prodDescricao == null) {
+				parametro.put("PRODUTO_DESCRICAO", "%%");
+			} else {
+				parametro.put("PRODUTO_DESCRICAO", "%"+prodDescricao+"%");
+			}
+			
+			if (fabDescricao == null) {
+				parametro.put("FABRICANTE_DESCRICAO", "%%");
+			} else {
+				parametro.put("FABRICANTE_DESCRICAO", "%"+fabDescricao+"%");
+			}
 			
 			Connection conexao = HibernateUtil.getConexao();
 			

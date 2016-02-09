@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-02-09T09:44:52 -->
+<!-- 2016-02-09T14:23:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produtosListagem" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3997b6aa-b9b5-4f84-b881-68eb424584b2">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria"/>
+	<parameter name="FABRICANTE_DESCRICAO" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT drogaria.fabricante.descricao as Fabricante,
 	drogaria.produto.descricao as Produto,
@@ -14,6 +18,8 @@
 FROM drogaria.produto
 	INNER JOIN drogaria.fabricante ON 
 	 drogaria.produto.`codFabricante` = drogaria.fabricante.`codigo`
+WHERE drogaria.fabricante.descricao LIKE $P{FABRICANTE_DESCRICAO} 
+    AND drogaria.produto.descricao LIKE $P{PRODUTO_DESCRICAO}
 ORDER BY drogaria.fabricante.descricao ASC,
  drogaria.produto.descricao ASC]]>
 	</queryString>
@@ -40,7 +46,7 @@ ORDER BY drogaria.fabricante.descricao ASC,
 						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<paragraph lineSpacingSize="0.5"/>
+						<paragraph lineSpacingSize="0.5" firstLineIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{Fabricante}]]></textFieldExpression>
 					<patternExpression><![CDATA[$F{Fabricante}]]></patternExpression>
@@ -144,7 +150,9 @@ ORDER BY drogaria.fabricante.descricao ASC,
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph firstLineIndent="3"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Produto}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -160,7 +168,7 @@ ORDER BY drogaria.fabricante.descricao ASC,
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Qtde}]]></textFieldExpression>
 			</textField>
-			<textField pattern="0.00">
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="360" y="0" width="95" height="20" uuid="deb1880c-a780-4735-abb5-e726a4033083">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -173,7 +181,7 @@ ORDER BY drogaria.fabricante.descricao ASC,
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Valor}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.##;¤-#,##0.##">
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="455" y="0" width="100" height="20" uuid="06264fad-37f1-4355-891d-215472ee6fd2">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -189,9 +197,9 @@ ORDER BY drogaria.fabricante.descricao ASC,
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="21" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="15" splitType="Stretch"/>
 	</pageFooter>
 </jasperReport>
