@@ -64,13 +64,9 @@
 			<version>4.12</version>
 		</dependency>
 
-		<!-- JSF 
-		<dependency> 
-			<groupId>org.glassfish</groupId> 
-			<artifactId>javax.faces</artifactId> 
-			<version>2.2.8-12</version> 
-		</dependency> -->
-		
+		<!-- JSF <dependency> <groupId>org.glassfish</groupId> <artifactId>javax.faces</artifactId> 
+			<version>2.2.8-12</version> </dependency> -->
+
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
@@ -100,9 +96,9 @@
 
 		<!-- Servlet - Carregar Hibernate junto ao Apache Tomcat -->
 		<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 
 		<!-- Jersey - Webservices -->
@@ -119,8 +115,12 @@
 			<version>2.4</version>
 		</dependency>
 
-		<!-- JasperReports <dependency> <groupId>net.sf.jasperreports</groupId> 
-			<artifactId>jasperreports</artifactId> <version>6.1.1</version> </dependency> -->
+		<!-- JasperReports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.2.0</version>
+		</dependency>
 
 		<!-- Spring Security <dependency> <groupId>org.springframework.security</groupId> 
 			<artifactId>spring-security-core</artifactId> <version>4.0.3.RELEASE</version> 

@@ -18,12 +18,15 @@
 						 rows="5"
 						 paginatorPosition="top">
 				<f:facet name="header">
-					<p:commandButton value="Novo"  
+					<p:commandButton icon="ui-icon-plus" value="Novo"  
 									 actionListener="#{produtoBean.novo}" type="org.omnifaces" 
 									 oncomplete="PF('dialogo').show();"
 									 update=":mensagem :formCadastro:painelCadastro">
 					
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-print" value="Imprimir" actionListener="#{produtoBean.imprimir}">
 					</p:commandButton>
 				</f:facet>
 
