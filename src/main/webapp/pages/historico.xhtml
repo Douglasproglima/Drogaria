@@ -6,16 +6,16 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Produtos</title>
+	<title>Histórico</title>
 </h:head>
 
 <h:body>
 	<p:growl id="mensagem" />
 	<h:form id="formulario">
-		<p:panel header="Pesquisa de Produtos">
+		<p:panel header="Histórico de Produtos">
 			<h:panelGrid columns="3">
 				<p:outputLabel for="idCodigo" value="Código"></p:outputLabel>
-				<p:inputText id="idCodigo"  value="#{produtoBean2.produto.codigo}" size="20" maxlength="10" 
+				<p:inputText id="idCodigo"  value="#{historicoBean.produto.codigo}" size="20" maxlength="10" 
 							 required="true" requiredMessage="O campo Código é obrigatório"
 							 converterMessage="O valor informado no campo Código é inválido."
 							 validatorMessage="Informe um númeo inteiro entre 1 e 9999999999999 para o campo Código.">
@@ -24,23 +24,23 @@
 				</p:inputText>
 				
 				<p:commandButton icon="ui-icon-search" update=":mensagem :formulario:painelGroupDados"
-								 actionListener="#{produtoBean2.buscar}">
+								 actionListener="#{historicoBean.buscar}">
 				</p:commandButton>
 			</h:panelGrid>
 			
 			<h:panelGroup id="painelGroupDados" layout="block">
-				<h:panelGrid columns="2" rendered="#{produtoBean2.exibePainelDados}">
+				<h:panelGrid columns="2" rendered="#{historicoBean.exibePainelDados}">
 					<h:outputLabel value="Fabricante:"/>
-					<h:outputText value="#{produtoBean2.produto.fabricante.descricao}"/>
+					<h:outputText value="#{historicoBean.produto.fabricante.descricao}"/>
 				
 					<h:outputLabel value="Descrição:"/>
-					<h:outputText value="#{produtoBean2.produto.descricao}"/>
+					<h:outputText value="#{historicoBean.produto.descricao}"/>
 				
 					<h:outputLabel value="Qtde:"/>
-					<h:outputText value="#{produtoBean2.produto.qtde}"/>
+					<h:outputText value="#{historicoBean.produto.qtde}"/>
 					
 					<h:outputLabel value="Valor:"/>
-					<h:outputText value="#{produtoBean2.produto.valorVenda}">
+					<h:outputText value="#{historicoBean.produto.valorVenda}">
 						<f:convertNumber currencyCode="BRL" type="currency" />
 					</h:outputText>
 				</h:panelGrid>

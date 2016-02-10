@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 public class Cidade extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(name = "codEstado", nullable = false, foreignKey = @ForeignKey(name = "FK_EstadoXCidade") )
-
 	private Estado estado;
+	
 	@Column(length = 100, nullable = false)
 	private String nome;
 
