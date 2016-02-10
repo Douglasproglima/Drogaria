@@ -16,26 +16,35 @@
 			<h:panelGrid columns="3">
 				<p:outputLabel for="idCodigo" value="Código"></p:outputLabel>
 				<p:inputText id="idCodigo"  value="#{produtoBean2.produto.codigo}" size="20" maxlength="10" 
-							 required="true" requiredMessage="O campo Código é obrigatório"></p:inputText>
-				<p:commandButton icon="ui-icon-search" update=":mensagem :formulario:painelDados"
-								 actionListener="#{produtoBean2.buscar}"></p:commandButton>
+							 required="true" requiredMessage="O campo Código é obrigatório"
+							 converterMessage="O valor informado no campo Código é inválido."
+							 validatorMessage="Informe um númeo inteiro entre 1 e 9999999999999 para o campo Código.">
+					
+					<f:validateLongRange minimum="1" maximum="9999999999999"/>
+				</p:inputText>
+				
+				<p:commandButton icon="ui-icon-search" update=":mensagem :formulario:painelGroupDados"
+								 actionListener="#{produtoBean2.buscar}">
+				</p:commandButton>
 			</h:panelGrid>
 			
-			<h:panelGrid id="painelDados" columns="2">
-				<h:outputLabel value="Fabricante:"/>
-				<h:outputText value="#{produtoBean2.produto.fabricante.descricao}"/>
-			
-				<h:outputLabel value="Descrição:"/>
-				<h:outputText value="#{produtoBean2.produto.descricao}"/>
-			
-				<h:outputLabel value="Qtde:"/>
-				<h:outputText value="#{produtoBean2.produto.qtde}"/>
+			<h:panelGroup id="painelGroupDados" layout="block">
+				<h:panelGrid columns="2" rendered="#{produtoBean2.exibePainelDados}">
+					<h:outputLabel value="Fabricante:"/>
+					<h:outputText value="#{produtoBean2.produto.fabricante.descricao}"/>
 				
-				<h:outputLabel value="Valor:"/>
-				<h:outputText value="#{produtoBean2.produto.valorVenda}">
+					<h:outputLabel value="Descrição:"/>
+					<h:outputText value="#{produtoBean2.produto.descricao}"/>
 				
-				</h:outputText>
-			</h:panelGrid>
+					<h:outputLabel value="Qtde:"/>
+					<h:outputText value="#{produtoBean2.produto.qtde}"/>
+					
+					<h:outputLabel value="Valor:"/>
+					<h:outputText value="#{produtoBean2.produto.valorVenda}">
+						<f:convertNumber currencyCode="BRL" type="currency" />
+					</h:outputText>
+				</h:panelGrid>
+			</h:panelGroup>
 		</p:panel>
 	</h:form>
 </h:body>
