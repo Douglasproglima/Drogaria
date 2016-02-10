@@ -24,7 +24,7 @@
 				</p:inputText>
 				
 				<p:commandButton icon="ui-icon-search" update=":mensagem :formulario:painelGroupDados"
-								 actionListener="#{historicoBean.buscar}">
+								 actionListener="#{historicoBean.buscar}" process="@this :formulario:idCodigo">
 				</p:commandButton>
 			</h:panelGrid>
 			
@@ -43,7 +43,18 @@
 					<h:outputText value="#{historicoBean.produto.valorVenda}">
 						<f:convertNumber currencyCode="BRL" type="currency" />
 					</h:outputText>
+					
+					<p:outputLabel for="idObs" value="Observações" />
+					<p:inputTextarea id="idObs" value="#{historicoBean.historico.observacoes}" 
+								     required="true" requiredMessage="O campo Observações é obrigatório."
+									 rows="5" cols="50" autoResize="false"/>
 				</h:panelGrid>
+				
+				<h:panelGrid columns="1" rendered="#{historicoBean.exibePainelDados}">
+					<p:commandButton value="Salvar" actionListener="#{historicoBean.salvar}" update=":mensagem">
+					</p:commandButton>
+				</h:panelGrid>
+				
 			</h:panelGroup>
 		</p:panel>
 	</h:form>
