@@ -47,6 +47,7 @@
 		<mapping class="br.pro.delfino.drogaria.domain.Usuario"/>
 		<mapping class="br.pro.delfino.drogaria.domain.Venda"/>
 		<mapping class="br.pro.delfino.drogaria.domain.Historico"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Caixa"/>
 	</session-factory>
 
 </hibernate-configuration>
