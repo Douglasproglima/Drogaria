@@ -89,7 +89,11 @@
 				</p:selectOneMenu>
 				
 				<p:outputLabel for="idCarteiraTrab" value="Carteira de Trabalho: "/>
-				<p:inputText id="idCarteiraTrab" value="#{funcionarioBean.funcionario.carteiraTrabalho}"/>
+				<p:inputText id="idCarteiraTrab" value="#{funcionarioBean.funcionario.carteiraTrabalho}"
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel for="idDtCadastro" value="Data de Cadastro: "/>
 				<p:calendar id="idDtCadastro" value="#{funcionarioBean.funcionario.dataAdmissao}" 

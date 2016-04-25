@@ -10,6 +10,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SGD - Sistema Gerenciamento Drogarias</title>
 	<h:outputStylesheet library="css" name="estilos.css" />
+	<h:outputScript library="js" name="script.js"/>
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
@@ -27,11 +28,17 @@
 		<div id="divGeral">
 
 			<!-- Topo -> LogoTipo \ -->
-			<div id="idTopo" class="divTopo">
-				<p:graphicImage library="imagens" name="cabecalho/06.png"
-							 	styleClass="imagemCentralizada" 
-							 	style="text-align:center; display:block;" />
-			</div>
+<!-- 			<p:notificationBar position="top" effect="slide" style="position:top;" widgetVar="bar"> -->
+				<div id="idTopo" class="divTopo">
+					<p:graphicImage library="imagens" name="cabecalho/06.png"
+								 	styleClass="imagemCentralizada" 
+								 	style="text-align:center; display:block;" />
+				</div>
+<!-- 			</p:notificationBar> -->
+			
+<!-- 			<p:commandButton value="Show" onclick="PF('bar').show()" type="button" icon="ui-icon-arrow-1-s"/> -->
+<!-- 			<p:commandButton value="Hide" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n"/> -->
+			
 
 			<!-- Cabeçalho - Todas as páginas irão ter o mesmo menu-->
 			<div id="idCabecalho" class="divCabecalho">

@@ -22,6 +22,7 @@ public class FuncionarioBean implements Serializable{
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
 	private List<Pessoa> pessoas;
+	
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}

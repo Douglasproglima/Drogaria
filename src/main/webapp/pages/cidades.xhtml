@@ -68,7 +68,11 @@
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idNome" value="Cidade: "/>
 				<p:inputText id="idNome" value="#{cidadeBean.cidade.nome}" maxlength="50" size="30" 
-							 required="true" requiredMessage="O campo Cidade é obrigatório."/>
+							 required="true" requiredMessage="O campo Cidade é obrigatório."
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel for="idEstado" value="Estado: "/>
 				<p:selectOneMenu id="idEstado" filter ="true" value="#{cidadeBean.cidade.estado}" converter="omnifaces.SelectItemsConverter" 

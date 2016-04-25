@@ -21,6 +21,7 @@ public class ItemVendaBean implements Serializable{
 	
 	private List<Produto> produtos;
 	private List<Venda> vendas;
+	
 	public ItemVenda getItemVenda() {
 		return itemVenda;
 	}

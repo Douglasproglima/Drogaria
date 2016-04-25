@@ -1,5 +1,10 @@
 @CHARSET "UTF-8";
 
+.divAutenticao{
+	max-width:100%;
+	comentheight:auto;	
+}
+
 .imagemCentralizada{
 	display: block;
 	margin-left: auto;

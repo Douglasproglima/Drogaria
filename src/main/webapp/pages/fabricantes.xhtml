@@ -60,7 +60,11 @@
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel value="Descrição: "/>
 				<p:inputText value="#{fabricanteBean.fabricante.descricao}" maxlength="80" size="40" 
-							 required="true" requiredMessage="O campo Descrição é obrigatório."/>
+							 required="true" requiredMessage="O campo Descrição é obrigatório."
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">

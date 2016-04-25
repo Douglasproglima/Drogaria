@@ -85,7 +85,11 @@
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idDescricao" value="Descrição: "/>
 				<p:inputText id="idDescricao" value="#{produtoBean.produto.descricao}" maxlength="50" size="30" 
-							 required="true" requiredMessage="O campo Descrição: é obrigatório."/>
+							 required="true" requiredMessage="O campo Descrição: é obrigatório."
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 
 				<p:outputLabel for="idQtde" value="Qtde: "/>
 				<p:inputText id="idQtde" value="#{produtoBean.produto.qtde}" maxlength="5" size="10" 

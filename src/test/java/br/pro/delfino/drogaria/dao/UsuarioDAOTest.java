@@ -2,6 +2,7 @@ package br.pro.delfino.drogaria.dao;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -13,9 +14,6 @@ public class UsuarioDAOTest {
 	@Ignore
 	public void salvar(){
 		Usuario usuario = new Usuario();
-		usuario.setAtivo(true);
-		usuario.setSenha("0103");
-		usuario.setTipo('A');
 		
 		Long codPessoa = 2L;
 		PessoaDAO pessoaDAO = new PessoaDAO();
@@ -25,13 +23,33 @@ public class UsuarioDAOTest {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuario.setPessoa(pessoa);
 			
-			usuarioDAO.salvar(usuario);
+			usuario.setAtivo(true);
+			usuario.setTipo('A');
+			
+			usuario.setSenhaSemCriptografia("2612");
+			SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+			usuario.setSenha(hash.toHex());
+			
+			usuarioDAO.merge(usuario);
 			
 			System.out.println("Registro salvo com sucesso!");
 		} else {
 			System.out.println("Registro "+codPessoa+" não encontrado no cadastro de pessoas.");
 			System.out.println("Operação abordada!");
 		}
+	}
+	
+	@Test
+	public void autenticar(){
+		String nome = "douglas.fernando";
+		String cpf = "076.392.316-80";
+		String senha = "0103";
+		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = usuarioDAO.autenticar(nome, senha);
+		
+		//Se retornar <> de null funcionou
+		System.out.println("Usuário autenticado: " + usuario);
 	}
 	
 	@Test
@@ -77,6 +95,7 @@ public class UsuarioDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar(){
 		Long codUsuario = 2L;
 		UsuarioDAO usuarioDAO = new UsuarioDAO();

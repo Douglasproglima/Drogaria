@@ -67,12 +67,20 @@
 			<h:form id="formCadastro">
 				<h:panelGrid id="painelCadastro" columns="2">
 					<p:outputLabel value="Estado: "/>
-					<p:inputText value="#{estadoBean.estado.nome}" maxlength="50" size="30" 
-								 required="true" requiredMessage="O campo Estado é obrigatório."/>
+					<p:inputText id="idEstado" value="#{estadoBean.estado.nome}" maxlength="50" size="30" 
+								 required="true" requiredMessage="O campo Estado é obrigatório."
+								 converter="upperCaseConverter" >
+						
+						<p:ajax event="blur" update=":formCadastro:idEstado"/>			 
+					</p:inputText>
 	
 					<p:outputLabel value="Sigla: "/>
 					<p:inputText value="#{estadoBean.estado.sigla}" maxlength="2" size="5"
-								 required="true" requiredMessage="O campo Sigla é obrigatório."/>
+								 required="true" requiredMessage="O campo Sigla é obrigatório."
+								 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>		 
+					</p:inputText>
 				</h:panelGrid>
 				
 				<h:panelGrid columns="2">

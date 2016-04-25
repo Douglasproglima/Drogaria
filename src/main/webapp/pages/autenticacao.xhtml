@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Autenticação do Usuário</title>
+<!-- 	<link rel="shortcut icon" type=""/> -->
+</h:head>
+<h:body >
+<!-- 	<div id="idAutenticao" class="divAutenticao"> -->
+	<div id="idAutenticao" >
+		<p:graphicImage library="imagens" name="backgrouds/drogaria02.png" styleClass="divAutenticao"
+						style="min-width: 974px; min-height: 400px;width: 99%;height: 98%; background-size: cover;
+							   image-rendering: optimizeSpeed;  comentheight:auto;position: absolute;"/>		
+		<p:growl id="mensagem"/>
+		
+		<p:dialog header="Formulário de Login" closable="false" draggable="false" resizable="false" modal="false" visible="true" 
+				  showEffect="slide" hideEffect="explode" position="center" minWidth="400" width="400">
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel for="nome" value="Usuário:"/>
+					<p:inputText id="nome" size="20" required="true" requiredMessage="O campo 'Usuário' é obrigatório."
+								 value="#{autenticacaoBean.usuario.pessoa.nome}"/>
+					
+					<p:outputLabel for="senha" value="Senha:"/>
+					<p:password id="senha" maxlength="8" size="20" required="true" requiredMessage="O campo 'Senha' é obrigatório."
+								value="#{autenticacaoBean.usuario.senha}"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1">
+				<p:commandButton value="Entrar" icon="ui-icon-plus" update=":mensagem" actionListener="#{autenticacaoBean.autenticar}" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>	
+	</div>
+
+</h:body>
+</html>

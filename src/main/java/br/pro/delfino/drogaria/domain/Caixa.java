@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,6 +24,10 @@ public class Caixa extends GenericDomain{
 	
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal valorAbertura;
+	
+	@ManyToOne
+	@JoinColumn(name = "codFuncionario", nullable = false, foreignKey = @ForeignKey(name = "FK_CaixaXFuncionario") )
+	private Funcionario funcionario;
 
 	public Date getDataAbertura() {
 		return dataAbertura;
@@ -44,5 +51,13 @@ public class Caixa extends GenericDomain{
 
 	public void setValorAbertura(BigDecimal valorAbertura) {
 		this.valorAbertura = valorAbertura;
+	}
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+	
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 }

@@ -42,6 +42,7 @@ public class ProdutoBean implements Serializable{
 	private Produto produto;
 	private List<Produto> produtos;
 	private List<Fabricante> fabricantes;
+	
 	public Produto getProduto() {
 		return produto;
 	}

@@ -78,7 +78,11 @@
 			<h:panelGrid id="painelCadastro" columns="2">
 				<p:outputLabel for="idNome" value="Nome: "/>
 				<p:inputText id="idNome" value="#{pessoaBean.pessoa.nome}" maxlength="50" size="45"
-							 required="true" requiredMessage="O campo Nome é obrigatório."/>
+							 required="true" requiredMessage="O campo Nome é obrigatório."
+							  converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel for="idCPF" value="CPF: "/>
 				<p:inputMask id="idCPF" value="#{pessoaBean.pessoa.cpf}" size="15" mask="999.999.999-99"
@@ -86,20 +90,32 @@
 				
 				<p:outputLabel value="RG: "/>
 				<p:inputMask id="RG" mask="99.999.999-9" value="#{pessoaBean.pessoa.rg}" size="10"/>	
+				
 				<p:outputLabel value="Rua: "/>
-				<p:inputText value="#{pessoaBean.pessoa.rua}" maxlength="100" size="45" />
+				<p:inputText value="#{pessoaBean.pessoa.rua}" maxlength="100" size="45" converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel value="Número: "/>
 				<p:inputText value="#{pessoaBean.pessoa.numero}" maxlength="6" size="15" />
 				
 				<p:outputLabel value="Bairro: "/>
-				<p:inputText value="#{pessoaBean.pessoa.bairro}" maxlength="50" size="45" />
+				<p:inputText value="#{pessoaBean.pessoa.bairro}" maxlength="50" size="45"
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel value="Cep: "/>
 				<p:inputMask value="#{pessoaBean.pessoa.cep}" maxlength="10" size="15" mask="99999-999"/>
 				
 				<p:outputLabel value="Complemento: "/>
-				<p:inputText value="#{pessoaBean.pessoa.complemento}" maxlength="50" size="45" />
+				<p:inputText value="#{pessoaBean.pessoa.complemento}" maxlength="50" size="45"
+							  converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel value="Telefone: "/>
 				<p:inputMask value="#{pessoaBean.pessoa.telefone}" mask="(99)9999-9999" size="15"/>

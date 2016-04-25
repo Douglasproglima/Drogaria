@@ -9,6 +9,6 @@
 	template="/templates/modeloCurso.xhtml">
 	
 	<ui:define name="uiConteudo">
-		<h:outputText value="Bem vindo ao SGD - Sistema Gerenciamento de Drogarias"/>
+		<h:outputText value="Bem vindo ao SGD - Sistema Gerenciamento de Drogarias - #{autenticacaoBean.usuarioLogado.pessoa.nome}"/>
 	</ui:define>
 </ui:composition>
