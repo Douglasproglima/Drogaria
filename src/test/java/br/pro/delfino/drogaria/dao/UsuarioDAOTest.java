@@ -11,11 +11,11 @@ import br.pro.delfino.drogaria.domain.Usuario;
 
 public class UsuarioDAOTest {
 	@Test
-	@Ignore
+//	@Ignore
 	public void salvar(){
 		Usuario usuario = new Usuario();
 		
-		Long codPessoa = 2L;
+		Long codPessoa = 1L;
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		Pessoa pessoa = pessoaDAO.buscar(codPessoa);
 		
@@ -26,7 +26,7 @@ public class UsuarioDAOTest {
 			usuario.setAtivo(true);
 			usuario.setTipo('A');
 			
-			usuario.setSenhaSemCriptografia("2612");
+			usuario.setSenhaSemCriptografia("123456");
 			SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
 			usuario.setSenha(hash.toHex());
 			
@@ -43,7 +43,7 @@ public class UsuarioDAOTest {
 	public void autenticar(){
 		String nome = "douglas.fernando";
 		String cpf = "076.392.316-80";
-		String senha = "0103";
+		String senha = "123456";
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.autenticar(nome, senha);

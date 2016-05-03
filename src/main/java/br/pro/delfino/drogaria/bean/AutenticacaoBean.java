@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.lucene.queryparser.flexible.messages.Message;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
