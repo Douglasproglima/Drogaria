@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
+<web-app id="WebApp_ID" version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<!-- Nome da Aplicação -->
 	<display-name>Drogaria</display-name>
 
-	<!-- Página Inicial da Aplicação -->
-	<welcome-file-list>
-		<welcome-file>pages/autenticacao.xhtml</welcome-file>
-	</welcome-file-list>
+	<!-- Localização do face-config para utilização do PhaseListener -->
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/faces-config.xml</param-value>
+	</context-param>
 
 	<!--Estágio do Projeto -->
 	<context-param>
@@ -23,16 +23,16 @@
 		<param-value>afterwork</param-value>
 	</context-param>
 
-	<!-- -->
-	<listener>
-		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
-	</listener>
-
 	<!-- Definição do Mecanismo de Upload -->
 	<context-param>
 		<param-name>primefaces.UPLOADER</param-name>
 		<param-value>native</param-value>
 	</context-param>
+
+	<!-- -->
+	<listener>
+		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
+	</listener>
 
 	<!-- Configuração do JSF -->
 	<servlet>
@@ -46,4 +46,9 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+	<!-- Página Inicial da Aplicação -->
+	<welcome-file-list>
+		<welcome-file>pages/autenticacao.xhtml</welcome-file>
+	</welcome-file-list>
 </web-app>

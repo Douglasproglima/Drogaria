@@ -31,7 +31,8 @@
 					<p:outputLabel value="Funcionário:"/>
 					<p:selectOneMenu value="#{caixaBean.caixa.funcionario}" converter="omnifaces.SelectItemsConverter" >
 						<f:selectItem noSelectionOption="true" itemLabel="Selecione um funcionário"/>
-						<f:selectItems value="#{caixaBean.funcionarios}" var="funcionarioListagem" itemValue="#{funcionarioListagem}" 
+						<f:selectItems value="#{caixaBean.funcionarios}" var="funcionarioListagem" 
+									   itemValue="#{funcionarioListagem}" 
 									   itemLabel="#{funcionario.pessoa.nome}"/>
 					</p:selectOneMenu>
 
