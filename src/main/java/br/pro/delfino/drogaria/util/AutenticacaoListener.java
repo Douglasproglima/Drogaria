@@ -14,7 +14,7 @@ public class AutenticacaoListener implements PhaseListener{
 
 	@Override
 	public void afterPhase(PhaseEvent event) {
-		//Retorna a página atual
+		//Retorna a página atual.
 		String paginaAtual =  Faces.getViewId();
 		
 		//Verifica se a página atual é referente a página de autenticação
@@ -34,7 +34,7 @@ public class AutenticacaoListener implements PhaseListener{
 			}
 			
 			Usuario usuario = autenticacaoBean.getUsuarioLogado();
-			//Se o usuário for igual a null, direcionar o usuário para tela de autenticação
+			//Se o usuário for igual a null, direcionar o usuário para tela de autenticação.
 			if (usuario == null) {
 				Faces.navigate("/pages/autenticacao.xhtml");
 				return;

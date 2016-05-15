@@ -1,6 +1,7 @@
 package br.pro.delfino.drogaria.bean;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,9 +19,9 @@ import br.pro.delfino.drogaria.domain.Usuario;
 public class AutenticacaoBean {
 
 /*Anotações da Class
- * @RequestScoped -> A cada clique o usuário será destruído;
+ * @RequestScoped -> A cada clique o usuário será destruído.
  * @ViewScoped	  -> O usuário fica ativo somente durante a execução da tela atual, quando alterar p/ outra janela a sessão morre;
- * @SessionScoped -> O usuário é criado no momento em que loga e é destruído somente após a finalização ou logoff do sistema;
+ * @SessionScoped -> O usuário é criado no momento em que loga e é destruído somente após a finalização ou logoff do sistema.
  * */
 	
 	private Usuario usuario;
@@ -69,5 +70,19 @@ public class AutenticacaoBean {
 		} catch (IOException erro) {
 			Messages.addGlobalError("Não foi possível localizar a página." + erro);
 		}
+	}
+	
+	public boolean temPermissoes(List<String> permissoes){
+//		if (usuarioLogado == null) {
+//			return false;
+//		}
+		
+		for(String permissao : permissoes){
+			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
+				return true;
+			}
+		}
+		return false;
+		
 	}
 }

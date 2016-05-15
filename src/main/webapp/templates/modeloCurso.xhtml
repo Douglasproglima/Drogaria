@@ -44,7 +44,7 @@
 			<div id="idCabecalho" class="divCabecalho">
 				<h:form id="formMenu">
 					<p:menubar>
-						<p:submenu label="Arquivos">
+						<p:submenu label="Arquivos" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 							<p:menuitem value="Cadastro de Usuário" url="usuarios.xhtml"/>
 							<p:menuitem value="Sair" />
 						</p:submenu>
