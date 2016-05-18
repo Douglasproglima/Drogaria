@@ -18,6 +18,8 @@
 						 rows="5"
 						 paginatorPosition="top">
 				<f:facet name="header">
+					<p:button icon="icon-circle-empty" value="Listagem de Produtos" outcome="/pages/produtosListagem.xhtml"/>
+					
 					<p:commandButton icon="ui-icon-plus" value="Novo"  
 									 actionListener="#{produtoBean.novo}" type="org.omnifaces" 
 									 oncomplete="PF('dialogo').show();"

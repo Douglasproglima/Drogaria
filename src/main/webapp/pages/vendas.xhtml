@@ -6,6 +6,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/templates/modeloCurso.xhtml">
+
+	<ui:define name="uimMetadata">
+		<f:metadata>
+			<f:viewAction action="#{vendaBean.listar}"/>
+		</f:metadata>
+	</ui:define>
 	
 	<ui:define name="uiConteudo">
 	
@@ -97,13 +103,16 @@
 								 oncomplete="PF('dialogo').show();" >
 				
 					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
-				</p:commandButton>	
+				</p:commandButton>		
+				
+				<p:button value="Vendas Realizadas" outcome="/pages/vendasListagem.xhtml"/>	
 			</h:panelGrid>		
 		</p:panel>		
 	</h:form>
 
 	<p:dialog header="Finalizar Venda" widgetVar="dialogo"
 			  draggable="false" resizable="false" modal="true" closable="false">
+			  
 		<h:form id="formularioFinalizarVenda">
 			<h:panelGrid id="painelFinalizarVenda" columns="2">
 				<p:outputLabel for="idFuncionario" value="Funcionário:" />

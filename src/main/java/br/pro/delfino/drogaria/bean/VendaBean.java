@@ -32,7 +32,8 @@ public class VendaBean implements Serializable {
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
-
+	private List<Venda> vendas;
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -73,6 +74,14 @@ public class VendaBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+	
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
+	
 	@PostConstruct
 	public void novo() {
 		try {
@@ -90,6 +99,17 @@ public class VendaBean implements Serializable {
 		}
 	}
 
+	public void listar(){
+		try {
+			VendaDAO vendaDAO = new VendaDAO();
+			vendas = vendaDAO.listar("horario");
+			
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar os registros, erro: " + erro);
+			erro.printStackTrace();
+		}
+	}
+	
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 

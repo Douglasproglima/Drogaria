@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+	
+<f:metadata>
+	<f:viewParam name="codProduto" value="#{produtoListagemBean.codigoProduto}" 
+				 required="true" requiredMessage="O campo Código do Produto é obrigatório."/>
+	<f:viewAction action="#{produtoListagemBean.carregarEdicao}"/>
+</f:metadata>
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Produtos - Edição</title>
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+	<h:form id="formCadastro"  enctype="multipart/form-data">
+		<p:panel header="Produtos - Edição">
+			<h:panelGrid id="painelCadastro" columns="2">
+				<p:outputLabel for="idDescricao" value="Descrição: "/>
+				<p:inputText id="idDescricao" value="#{produtoListagemBean.produto.descricao}" maxlength="50" size="30" 
+							 required="true" requiredMessage="O campo Descrição: é obrigatório."
+							 converter="upperCaseConverter">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
+	
+				<p:outputLabel for="idQtde" value="Qtde: "/>
+				<p:inputText id="idQtde" value="#{produtoListagemBean.produto.qtde}" maxlength="5" size="10" 
+							 required="true" requiredMessage="O campo Qtde é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Qtde Venda."
+							 validatorMessage="Informe um valor entre 1 e 1000 para o campo Qtde.">
+							 
+					<f:validateLongRange minimum="1" maximum="1000" />
+				</p:inputText>
+							 
+				<p:outputLabel for="idValorCompra" value="Valor Compra: "/>
+				<p:inputText id="idValorCompra" value="#{produtoListagemBean.produto.valorCompra}" maxlength="7" size="10" 
+							 required="true" requiredMessage="O campo Valor Compra é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Valor Compra"
+							 validatorMessage="Informe um valor entre 0.01 e 9999 no campo Valor Compra.">
+				
+					<f:convertNumber minFractionDigits="2" />
+					<f:validateDoubleRange minimum="0.01" maximum="9999"/>
+				</p:inputText>
+							 
+				<p:outputLabel for="idValorVenda" value="Valor Venda: "/>
+				<p:inputText id="idValorVenda" value="#{produtoListagemBean.produto.valorVenda}" maxlength="5" size="10" 
+							 required="true" requiredMessage="O campo Valor Venda é obrigatório."
+							 converterMessage="Informe um valor válido para o campo Valor Venda"
+							 validatorMessage="Informe um valor entre 0.01 e 9999 no campo Valor Venda.">
+							 
+					<f:convertNumber minFractionDigits="2" />
+					<f:validateDoubleRange minimum="0.01" maximum="9999"/>
+				</p:inputText>						 							 				
+				
+				<p:outputLabel for="idFabricante" value="Fabricante: "/>
+				<p:selectOneMenu id="idFabricante" filter ="true" value="#{produtoListagemBean.produto.fabricante}" converter="omnifaces.SelectItemsConverter" 
+								 required="true" requiredMessage="O campo Fabricante é obrigatório.">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um fabricante" />
+					<f:selectItems value="#{produtoListagemBean.fabricantes}" var="fabricanteListagem" 
+								  itemValue="#{fabricanteListagem}" itemLabel="#{fabricanteListagem.descricao}"/>
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" icon="ui-icon-floppy" actionListener="#{produtoListagemBean.salvar}" 
+					   		     update=":mensagem :formCadastro:painelCadastro" >
+				</p:commandButton>			
+				
+				<p:button icon="ui-icon-fast-backward" value="Voltar" outcome="/pages/produtosListagem.xhtml"/>
+			</h:panelGrid>
+		
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

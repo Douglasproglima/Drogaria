@@ -6,6 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
 	
+<ui:insert name="uiMetadata" />
+	
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SGD - Sistema Gerenciamento Drogarias</title>
@@ -46,7 +48,7 @@
 					<p:menubar>
 						<p:submenu label="Arquivos" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 							<p:menuitem value="Cadastro de Usuário" url="usuarios.xhtml"/>
-							<p:menuitem value="Sair" />
+							<p:menuitem value="Sair" ulr="autenticacao.xhtml"/>
 						</p:submenu>
 		
 						<p:submenu label="Cadastros">
@@ -57,6 +59,10 @@
 							<p:menuitem value="Cliente" url="clientes.xhtml"/>
 							<p:menuitem value="Funcionário" url="funcionarios.xhtml"/>
 							<p:menuitem value="Produto" url="produtos.xhtml"/>
+						</p:submenu>
+		
+						<p:submenu label="Consultas">
+							<p:menuitem value="Venda Realizadas" url="vendasListagem.xhtml"/>
 						</p:submenu>
 		
 						<p:submenu label="Procedimentos">
