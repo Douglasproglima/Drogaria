@@ -48,7 +48,7 @@
 					<p:menubar>
 						<p:submenu label="Arquivos" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 							<p:menuitem value="Cadastro de Usuário" url="usuarios.xhtml"/>
-							<p:menuitem value="Sair" ulr="autenticacao.xhtml"/>
+							<p:menuitem value="Sair" action="#{autenticacaoBean.sair}"/>
 						</p:submenu>
 		
 						<p:submenu label="Cadastros">

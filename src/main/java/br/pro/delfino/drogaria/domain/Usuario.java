@@ -14,6 +14,9 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_UsuarioXPessoa"))
 	private Pessoa pessoa;
 	
+	@Column(nullable = false, length = 20)
+	private String usuario;
+	
 	@Column(nullable = false)
 	private Boolean ativo;
 	
@@ -38,6 +41,14 @@ public class Usuario extends GenericDomain{
 		return ativo;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	
 	@Transient
 	public String getativoFormatado() {
 		String ativoFormatado = null;

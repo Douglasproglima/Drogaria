@@ -27,8 +27,12 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Usuário" filterBy="#{cursorUsuario.pessoa.nome}" sortBy="#{cursorUsuario.pessoa.nome}">
+				<p:column headerText="Pessoa" filterBy="#{cursorUsuario.pessoa.nome}" sortBy="#{cursorUsuario.pessoa.nome}">
 					<h:outputText value="#{cursorUsuario.pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="Usuário" filterBy="#{cursorUsuario.usuario}" sortBy="#{cursorUsuario.usuario}">
+					<h:outputText value="#{cursorUsuario.usuario}" />
 				</p:column>
 
 				<p:column headerText="CPF" style="width: 12%;">
@@ -71,8 +75,9 @@
 	<p:dialog header="Usuários - Cadastro" widgetVar="dialogo" draggable="true" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painelCadastro" columns="2">
-				<p:outputLabel for="idUsuario" value="Usuário: "/>
-				<p:selectOneMenu id="idUsuario" filter ="true" value="#{usuarioBean.usuario.pessoa}" 
+				
+				<p:outputLabel for="idPessoa" value="Pessoa: "/>
+				<p:selectOneMenu id="idPessoa" filter ="true" value="#{usuarioBean.usuario.pessoa}" 
 								 converter="omnifaces.SelectItemsConverter" 
 								 required="true" requiredMessage="O campo Usuário é obrigatório.">
 					
@@ -81,6 +86,13 @@
 								  itemValue="#{usuarioListagem}" itemLabel="#{usuarioListagem.nome} (#{usuarioListagem.cpf})"/>
 								  
 				</p:selectOneMenu>
+
+				<p:outputLabel for="idUsuario" value="Usuário: "/>
+				<p:inputText id="idUsuario" value="#{usuarioBean.usuario.usuario}" maxlength="50" size="45"
+							 required="true" requiredMessage="O campo Usuário é obrigatório.">
+								 
+						<p:ajax event="blur" update="@this"/>	
+				</p:inputText>
 				
 				<p:outputLabel for="idSenha" value="Senha: "/>
 				<p:password id="idSenha" maxlength="8" size="10" value="#{usuarioBean.usuario.senha}"
