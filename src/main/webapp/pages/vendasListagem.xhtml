@@ -21,8 +21,12 @@
 						 paginator="true" 
 						 value="#{vendaBean.vendas}"
 						 var="cursorVendasListagem" 
-						 rows="5"
+						 rows="10"
 						 paginatorPosition="top">
+
+				<p:column style="width: 16px">
+					<p:rowToggler />
+				</p:column>
 
 				<p:column headerText="Funcionário" filterBy="#{cursorVendasListagem.funcionario.pessoa.nome}" filterMatchMode="contains"
 						  sortBy="#{cursorVendasListagem.funcionario.pessoa.nome}">
@@ -51,7 +55,28 @@
 					</h:outputText>
 				</p:column>
 
-			</p:dataTable>
+				<p:rowExpansion >
+					<p:dataTable emptyMessage ="Nenhum registro encontrado." value="#{cursorVendasListagem.itensVendas}"
+						 		 var="cursorItemVenda" >
+					
+						<p:column headerText="Produto">
+							<h:outputText value="#{cursorItemVenda.produto.descricao}" />
+						</p:column>
+						
+						<p:column headerText="Quant.">
+							<h:outputText value="#{cursorItemVenda.qtde}" />
+						</p:column>
+						
+						<p:column headerText="Preço">
+							<h:outputText value="#{cursorItemVenda.valorParcial}" >
+								<f:convertNumber currencyCode="BRL" type="currency" />
+							</h:outputText>
+						</p:column>
+						
+					</p:dataTable>
+				</p:rowExpansion>
+
+			</p:dataTable >
 			
 			<h:panelGrid columns="2">				
 				<p:button icon="ui-icon-fast-backward" value="Voltar" outcome="/pages/vendas.xhtml"/>
