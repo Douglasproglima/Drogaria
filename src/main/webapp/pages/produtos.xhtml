@@ -58,6 +58,10 @@
 					<h:outputText value="#{cursorProduto.fabricante.descricao}" />
 				</p:column>
 
+				<p:column headerText="Foto">
+					<p:graphicImage cache="false" height="50" width="50" url="http://localhost:8080/uploadImagens/#{cursorProduto.codigo}.png" />
+				</p:column>
+
 				<p:column headerText="Opções" style="width: 6%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{produtoBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">

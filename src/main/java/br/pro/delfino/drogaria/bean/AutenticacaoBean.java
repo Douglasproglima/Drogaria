@@ -77,7 +77,7 @@ public class AutenticacaoBean {
 	public void autenticar2(){
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			usuarioLogado = usuarioDAO.autenticar(usuario.getUsuario(), usuario.getSenha());
+			usuarioLogado = usuarioDAO.autenticar2(usuario.getUsuario(), usuario.getSenha());
 			
 			if (usuarioLogado == null) {
 				Messages.addGlobalError("Nome ou senha incorretos.");
