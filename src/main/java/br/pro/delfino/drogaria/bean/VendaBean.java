@@ -120,8 +120,7 @@ public class VendaBean implements Serializable {
 		// For para percorrer o ArraList itensVenda
 		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			// Pega o item na linha corrente, em seguida pega o produto do item
-			// da
-			// linha corrente onde o mesmo seja igual ao produto procurado, se
+			// da linha corrente onde o mesmo seja igual ao produto procurado, se
 			// atender fica +1
 			if (itensVenda.get(posicao).getProduto().equals(produto)) {
 				status = posicao;

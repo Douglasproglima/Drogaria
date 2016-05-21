@@ -58,7 +58,9 @@
 						 value="#{vendaBean.itensVenda}"
 						 var="cursorItemVenda" 
 						 rows="3"
-						 paginatorPosition="top">
+						 paginatorPosition="top"
+						 editable="true"
+						 editMode="cell">
 				
 				<p:column headerText="Descrição" >
 					<h:outputText value="#{cursorItemVenda.produto.descricao}" />
@@ -71,7 +73,15 @@
 				</p:column>
 
 				<p:column headerText="Qtde" style="width: 6%;">
-					<h:outputText value="#{cursorItemVenda.qtde}" />
+					<p:cellEditor >
+						<f:facet name="output">
+							<h:outputText value="#{cursorItemVenda.qtde}" />
+						</f:facet>
+						
+						<f:facet name="input">
+							<p:inputText value="#{cursorItemVenda.qtde}"/>
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Valor Parcial" style="width: 15%;"> 
@@ -88,6 +98,8 @@
 				</p:column>
 
 				<p:column headerText="Opções" style="width: 6%;">
+
+				
 					<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.remover}"
 									 update=":formulario:tabelaItemVenda :formulario:painelFinalizacao">
 						<f:attribute name="itemVendaSelecionado" value="#{cursorItemVenda}"/>
