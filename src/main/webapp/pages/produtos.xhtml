@@ -58,11 +58,11 @@
 					<h:outputText value="#{cursorProduto.fabricante.descricao}" />
 				</p:column>
 
-				<p:column headerText="Foto">
+				<p:column headerText="Foto" style="width: 8%;">
 					<p:graphicImage cache="false" height="50" width="50" url="http://localhost:8080/uploadImagens/#{cursorProduto.codigo}.png" />
 				</p:column>
 
-				<p:column headerText="Opções" style="width: 6%;">
+				<p:column headerText="Opções" style="width: 8%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{produtoBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						
@@ -76,6 +76,12 @@
 						<p:confirm header="Confirmação" message="Deseja realmente excluir o registro?" icon="ui-icon-alert" />
 						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
 					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-arrowthick-1-s"  actionListener="#{produtoBean.donwload}" ajax="false">
+						<f:attribute name="produtoSelecionado" value="#{cursorProduto}" />
+						<p:fileDownload value="#{produtoBean.fotoDown}" />
+					</p:commandButton>
+					
 				</p:column>
 			</p:dataTable>
 			

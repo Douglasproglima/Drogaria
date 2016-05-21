@@ -1,6 +1,9 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,6 +26,8 @@ import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
@@ -43,23 +48,38 @@ public class ProdutoBean implements Serializable{
 	private List<Produto> produtos;
 	private List<Fabricante> fabricantes;
 	
+	private StreamedContent fotoDown;
+	
 	public Produto getProduto() {
 		return produto;
 	}
+	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
+	
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
+	
 	public List<Fabricante> getFabricantes() {
 		return fabricantes;
 	}
+	
 	public void setFabricantes(List<Fabricante> fabricantes) {
 		this.fabricantes = fabricantes;
+	}
+	
+	public StreamedContent getFotoDown() {
+		return fotoDown;
+	}
+	
+	public void setFotoDown(StreamedContent fotoDown) {
+		this.fotoDown = fotoDown;
 	}
 	
 	@PostConstruct
@@ -206,6 +226,20 @@ public class ProdutoBean implements Serializable{
 			JasperPrintManager.printReport(relatorio, true);
 		} catch (JRException erro) {
 			Messages.addGlobalError("Erro ao imprimir relatório, erro: "+ erro);
+			erro.printStackTrace();
+		}
+	}
+	
+	//Método Donwload utilizando o componente <p:fileDownload /> Aula 298
+	public void donwload(ActionEvent evento){
+		try{
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			
+			InputStream stream = new FileInputStream("D:/AmbienteDesenvolvimento/Java/Workspace/uploadImagens/"+produto.getCodigo()+".png");
+			fotoDown = new DefaultStreamedContent(stream, "image/png", produto.getCodigo() + ".png");
+		
+		} catch (FileNotFoundException erro) {
+			Messages.addGlobalError("Erro ao tentar efetuar o donwload da imagem, erro: "+ erro);
 			erro.printStackTrace();
 		}
 	}
