@@ -10,7 +10,7 @@
 	<ui:define name="uiConteudo">
 	<h:form id="formListagem">
 		<p:panel header="Clientes - Listagem">
-			<p:dataTable id="tabelaListagem" emptyMessage="Nenhum registro encontrado." 
+			<p:dataTable id="tabelaListagem" widgetVar="tabelaListagemPF" emptyMessage="Nenhum registro encontrado." 
 						 paginator="true" 
 						 value="#{clienteBean.clientes}"
 						 var="cursorCliente" 
@@ -27,26 +27,34 @@
 				</f:facet>
 
 				<p:column headerText="Cliente" filterBy="#{cursorCliente.pessoa.nome}" filterMatchMode="contains"
-						  sortBy="#{cursorCliente.pessoa.nome}">
+						  sortBy="#{cursorCliente.pessoa.nome}" style="width: 25%;">
 					<h:outputText value="#{cursorCliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF" style="width: 12%;">
+				<p:column headerText="CPF" style="width: 6%;">
 					<p:inputMask value="#{cursorCliente.pessoa.cpf}" mask="99.999.999-99" disabled="true" />
 					
 				</p:column>
 
-				<p:column headerText="Data do Cadastro" style="width: 8%;">
+				<p:column headerText="Data do Cadastro" style="width: 7%;">
 					<h:outputText value="#{cursorCliente.dataCadastro}" >
 						<f:convertDateTime locale="pt_br"/>
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Ativo" style="width: 4%;">
+				<p:column headerText="Ativo" style="width: 8%;" sortBy="#{cursorCliente.ativo}" filterBy="#{cursorCliente.ativo}">
+					<f:facet name="filter">
+						<p:selectOneButton onchange="PF('tabelaListagemPF').filter()">
+							<f:selectItem  itemValue="" itemLabel="Todos"/>
+							<f:selectItem  itemValue="true" itemLabel="Sim"/>
+							<f:selectItem  itemValue="false" itemLabel="Não"/>
+						</p:selectOneButton>
+					</f:facet>
+					
 					<p:selectBooleanCheckbox value="#{cursorCliente.ativo}" disabled="true" />
 				</p:column>
 
-				<p:column headerText="Opções" style="width: 6%;">
+				<p:column headerText="Opções" style="width: 4%;">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{clienteBean.editar}" 
 									 update=":mensagem :formCadastro:painelCadastro" oncomplete="PF('dialogo').show();">
 						
