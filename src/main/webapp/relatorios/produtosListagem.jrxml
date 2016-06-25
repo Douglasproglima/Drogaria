@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2016-02-09T14:23:14 -->
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-06-25T14:36:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produtosListagem" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3997b6aa-b9b5-4f84-b881-68eb424584b2">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria"/>
@@ -8,6 +8,7 @@
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
+	<parameter name="CaminhoLogo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT drogaria.fabricante.descricao as Fabricante,
 	drogaria.produto.descricao as Produto,
@@ -126,7 +127,7 @@ ORDER BY drogaria.fabricante.descricao ASC,
 			</rectangle>
 			<image>
 				<reportElement x="10" y="10" width="50" height="50" uuid="fa47a5e1-2a01-41e3-ae11-42d84aaf9c32"/>
-				<imageExpression><![CDATA["D:/AmbienteDesenvolvimento/Java/Workspace/Drogaria/src/main/webapp/resources/imagens/Logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{CaminhoLogo}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="148" y="24" width="259" height="30" uuid="af183f20-bc1f-42e2-9e57-5becb98bb8a0"/>

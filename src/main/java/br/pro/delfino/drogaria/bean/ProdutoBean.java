@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.export.parameters.ParametersOutputStreamExporterOutput;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -199,10 +200,14 @@ public class ProdutoBean implements Serializable{
 			String fabDescricao = (String) filtros.get("fabricante.descricao");
 			
 			String caminho = Faces.getRealPath("/relatorios/produtosListagem.jasper");
+			String caminhoLogo = Faces.getRealPath("/resources/imagens/Logo.jpg");
 			
-			Messages.addGlobalInfo("Caminho: " + caminho);
+			//Messages.addGlobalInfo("Caminho: " + caminhoLogo);
 			
 			Map<String, Object> parametro = new HashedMap(); //Nome e valor do parâmetro
+			
+			//Passa o caminho da logo para o relatório de produto, componente de imagem do relatório.
+			parametro.put("CaminhoLogo", caminhoLogo);
 			
 			//Passagem de parâmetros para o relatório
 			//1 - Nome do parametro do relatório na query;
