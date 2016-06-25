@@ -13,6 +13,8 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import com.lowagie.text.pdf.AcroFields.Item;
+
 import br.pro.delfino.drogaria.dao.ClienteDAO;
 import br.pro.delfino.drogaria.dao.FuncionarioDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
@@ -141,7 +143,19 @@ public class VendaBean implements Serializable {
 		}
 		
 		//Após adicionar os itens do carrinho atualiza o valor total através do método calcular()
-		calcular();
+		this.calcular();
+	}
+	
+	//Atualiza o valor parcial quando o usuário informar manualmente a qtde no grid
+	//Este método será utilizado na pág. vendas.xhml através de um ajax no panel 
+	//Carrinho de Compras/Datatable tabelaItemVenda
+	public void atualizarValorParcial(){
+		for(ItemVenda itemVenda : this.itensVenda){
+			itemVenda.setValorParcial(itemVenda.getProduto().getValorVenda().multiply(new BigDecimal(itemVenda.getQtde())));
+		}
+		
+		//Após adicionar os itens do carrinho atualiza o valor total através do método calcular()
+		this.calcular();
 	}
 
 	public void remover(ActionEvent evento) {
@@ -165,7 +179,7 @@ public class VendaBean implements Serializable {
 		}
 		
 		//Após adicionar os itens do carrinho atualiza o valor total através do método calcular()
-		calcular();
+		this.calcular();
 	}
 
 	public void calcular(){

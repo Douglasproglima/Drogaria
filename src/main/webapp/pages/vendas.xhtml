@@ -51,6 +51,9 @@
 				</p:column>
 			</p:dataTable>
 		</p:panel>
+		
+		<p:remoteCommand name="updateCellEditValorParcial" actionListener="#{vendaBean.atualizarValorParcial}"
+						 update=":formulario:tabelaItemVenda :formulario:painelFinalizacao"/>
 
 		<p:panel header="Carrinho de Compras">		
 			<p:dataTable id="tabelaItemVenda" emptyMessage="Nenhum registro encontrado." 
@@ -61,6 +64,8 @@
 						 paginatorPosition="top"
 						 editable="true"
 						 editMode="cell">
+						 
+				<p:ajax event="cellEdit" oncomplete="updateCellEditValorParcial()" />
 				
 				<p:column headerText="Descrição" >
 					<h:outputText value="#{cursorItemVenda.produto.descricao}" />
