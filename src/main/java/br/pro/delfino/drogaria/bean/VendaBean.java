@@ -13,8 +13,6 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
-import com.lowagie.text.pdf.AcroFields.Item;
-
 import br.pro.delfino.drogaria.dao.ClienteDAO;
 import br.pro.delfino.drogaria.dao.FuncionarioDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
