@@ -31,7 +31,7 @@
 
 	<!-- -->
 	<listener>
-		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
+		<listener-class>com.douglasproglima.drogaria.util.HibernateContexto</listener-class>
 	</listener>
 
 	<!-- Configuração do JSF -->

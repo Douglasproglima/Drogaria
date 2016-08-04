@@ -6,7 +6,7 @@
 	
 	<!-- Definição do PhaseListener da Autenticação -->
 	<lifecycle>
-		<phase-listener>br.pro.delfino.drogaria.util.AutenticacaoListener</phase-listener>
+		<phase-listener>com.douglasproglima.drogaria.util.AutenticacaoListener</phase-listener>
 	</lifecycle>
 	
 </faces-config>
