@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import com.douglasproglima.drogaria.dao.PessoaDAO;
@@ -49,7 +50,9 @@ public class UsuarioBean implements Serializable{
 			usuarios = usuarioDAO.listar();
 			
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
+			//Messages.addGlobalError("Erro ao listar os registros, erro: "+ erro);
+			Messages.addGlobalError(Faces.getResourceBundle("varMsg").getString("msgErroListar") +" "+ erro);
+			
 			erro.printStackTrace();
 		}
 	}
@@ -61,7 +64,8 @@ public class UsuarioBean implements Serializable{
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao inserir um novo Usuário, erro: "+ erro);
+			//Messages.addGlobalError("Erro ao inserir um novo Usuário, erro: "+ erro);
+			Messages.addGlobalError(Faces.getResourceBundle("varMsg").getString("msgErroInserir") +" "+ erro);
 			erro.printStackTrace();
 		}
 	}
@@ -77,9 +81,11 @@ public class UsuarioBean implements Serializable{
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
 			
-			Messages.addGlobalInfo("Registro salvo com sucesso.");
+			//Messages.addGlobalInfo("Registro salvo com sucesso.");
+			Messages.addGlobalInfo(Faces.getResourceBundle("varMsg").getString("msgOkSalvar"));
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			//Messages.addGlobalError("Erro ao salvar o registro, erro: "+ erro);
+			Messages.addGlobalError(Faces.getResourceBundle("varMsg").getString("msgErroSalvar") +" "+ erro);
 			erro.printStackTrace();
 		}
 	}
@@ -93,9 +99,11 @@ public class UsuarioBean implements Serializable{
 			
 			usuarios = usuarioDAO.listar();
 			
-			Messages.addGlobalInfo("Registro removido com sucesso.");
+			//Messages.addGlobalInfo("Registro removido com sucesso.");
+			Messages.addGlobalInfo(Faces.getResourceBundle("varMsg").getString("msgOkExcluir"));
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			//Messages.addGlobalError("Erro ao excluir o registro, erro: "+ erro);
+			Messages.addGlobalError(Faces.getResourceBundle("varMsg").getString("msgErroExcluir") +" "+ erro);
 			erro.printStackTrace();
 		}
 	}
@@ -107,7 +115,8 @@ public class UsuarioBean implements Serializable{
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
+			//Messages.addGlobalError("Erro ao editar o registro, erro: "+ erro);
+			Messages.addGlobalError(Faces.getResourceBundle("varMsg").getString("msgErroEditar") +" "+ erro);
 			erro.printStackTrace();
 		}
 	}	

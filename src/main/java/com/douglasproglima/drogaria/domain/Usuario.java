@@ -14,7 +14,7 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(name = "codPessoa", nullable = false, foreignKey = @ForeignKey(name = "FK_UsuarioXPessoa"))
 	private Pessoa pessoa;
 	
-	@Column(nullable = false, length = 20)
+	@Column(nullable = true, length = 20)
 	private String usuario;
 	
 	@Column(nullable = false)
