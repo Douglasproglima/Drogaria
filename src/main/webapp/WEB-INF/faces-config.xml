@@ -9,4 +9,17 @@
 		<phase-listener>com.douglasproglima.drogaria.util.AutenticacaoListener</phase-listener>
 	</lifecycle>
 	
+	<application>
+		<resource-bundle>
+			<base-name>sistema_en</base-name>
+			<var>varMsg</var>
+		</resource-bundle>
+		
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>pt</supported-locale>
+			<supported-locale>eng</supported-locale>	
+		</locale-config>
+	</application>
+	
 </faces-config>
